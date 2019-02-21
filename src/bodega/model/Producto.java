@@ -14,6 +14,17 @@ public class Producto {
     //El orden en que se encuentran enlistados es el orden en el que MySQL tiene la tabla
     
     private int idProducto;
+    private String date_created;
+    private String date_updated;
+    
+    /*Lista que contiene todas las columnas de la tabla del inventario
+    Un campo es "Descripción", otro es "Modelo", etc
+    
+    Por el momento es una idea temporal, ya que no se sabe si realmente se piensa extender
+    la cantidad de columnas de los reportes*/
+    ListaCampos listaCampos = new ListaCampos();
+    
+    
     private String tipo;
     private String descripcion;
     private String caracteristicas;
@@ -22,10 +33,10 @@ public class Producto {
     private int cantidad;
     private float pvp;
     private float costo;
-    private String date_created;
-    private String date_updated;
     
     public Producto(){
+        //this.listaCampos.llenarLista(this.idProducto);
+        
         this.tipo = "";
         this.descripcion = "";
         this.caracteristicas = "";

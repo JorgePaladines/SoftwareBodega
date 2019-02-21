@@ -35,8 +35,11 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import bodega.model.Conexion;
 import bodega.model.Producto;
+import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * FXML Controller class
@@ -70,7 +73,11 @@ public class CargarDatosVentanaController implements Initializable {
     private TableColumn<Producto, Float> costo;
     @FXML
     private Button backButton;
-    
+
+    /*Esto servirá para que se muestre en el UI todas las columnas que tiene el producto del inventario
+    Como debe poder agregarse campos al producto, deben primero contarse cuántos campos hay para que
+    se puedan mostrar como columnas en la interfaz*/
+    private int numColumnas;
 
     /**
      * Initializes the controller class.
@@ -82,12 +89,21 @@ public class CargarDatosVentanaController implements Initializable {
         
         //Llamar al método que retorna todo el set de productos
         ResultSet rs = this.conexion.mostrarDatos();
-        
+
         //Crear la lista visible, vacía al inicio
         this.datos = FXCollections.observableArrayList();
         
+        //Ahora contar el número de columnas
+        ResultSetMetaData rsmd;
+        
         //Recorrer el set y colocar la información del producto en un nuevo objeto Producto
-        try{ //Se necesita un try catch por el rs.next()
+        try{ //Se necesita un try catch por el rs
+            
+            /*Se guarda el número de columnas de cada fila.
+            -3 porque uno es el id y dos son fechas que no se ven*/
+            rsmd = rs.getMetaData();
+            this.numColumnas = rsmd.getColumnCount() - 3;
+            
             while(rs.next()){
                 this.datos.add(new Producto(Integer.parseInt(rs.getString(1)),
                                         rs.getString(2),

@@ -24,6 +24,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import bodega.model.Conexion;
 import bodega.model.Producto;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 
 /**
  * FXML Controller class
@@ -57,8 +59,6 @@ public class EditarProductoController implements Initializable {
     @FXML
     private Label lStock;
     @FXML
-    private TextField tStock;
-    @FXML
     private Label lPVP;
     @FXML
     private TextField tPVP;
@@ -73,6 +73,8 @@ public class EditarProductoController implements Initializable {
     
     
     private Producto producto;
+    @FXML
+    private Spinner<Integer> sStock;
 
     /**
      * Initializes the controller class.
@@ -90,7 +92,11 @@ public class EditarProductoController implements Initializable {
         this.tMarca.setText(p.getMarca());
         this.tModelo.setText(p.getModelo());
         this.tPVP.setText(Float.toString(p.getPvp()));
-        this.tStock.setText(Integer.toString(p.getCantidad()));
+        
+        //Para obtener el # y guardarlo en el spinner
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, p.getCantidad());
+        this.sStock.setValueFactory(valueFactory);
+        
         this.tTipo.setText(p.getTipo());
     }
 
@@ -98,7 +104,7 @@ public class EditarProductoController implements Initializable {
     private void submit(ActionEvent event) {
         //Función que se encarga de validar los campos al momento de Insertar o Actualizar un producto
         boolean camposBienColocados = Validacion.validarProducto(tTipo.getText(), tDesc.getText(),
-                                        tCarac.getText(), tModelo.getText(), tStock.getText(),
+                                        tCarac.getText(), tModelo.getText(), Integer.toString(sStock.getValue()),
                                         tPVP.getText(), tCosto.getText());
         try{
             if(camposBienColocados){
@@ -107,7 +113,7 @@ public class EditarProductoController implements Initializable {
                 
                 //Hacer el UPDATE del producto
                 int filasActualizadas = conn.actualizarProducto(producto.getIdProducto(), tTipo.getText(), tDesc.getText(), tCarac.getText(),
-                                    tMarca.getText(), tModelo.getText(), tStock.getText(),
+                                    tMarca.getText(), tModelo.getText(), Integer.toString(sStock.getValue()),
                                     tPVP.getText(), tCosto.getText());
                 
                 //Si el número de filas es mayor a 0, y en sí, si llega a esta línea, todo salió bien
