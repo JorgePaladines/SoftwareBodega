@@ -15,7 +15,7 @@ import javafx.stage.Stage;
  *
  * @author SEGUIRESA-PC
  */
-public class JavaFXApplicationTEST extends Application {
+public class SoftwareBodega extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
