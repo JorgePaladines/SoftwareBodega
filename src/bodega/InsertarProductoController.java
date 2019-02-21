@@ -165,7 +165,7 @@ public class InsertarProductoController implements Initializable {
 
     @FXML
     private void back(ActionEvent event) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("Sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Inicio.fxml"));
         Stage stage = (Stage) backButton.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

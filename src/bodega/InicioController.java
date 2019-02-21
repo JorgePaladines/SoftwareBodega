@@ -28,7 +28,7 @@ import javafx.stage.Window;
  *
  * @author SEGUIRESA-PC
  */
-public class SampleController implements Initializable {
+public class InicioController implements Initializable {
     
     @FXML
     private AnchorPane anchor;

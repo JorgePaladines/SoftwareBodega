@@ -32,12 +32,12 @@
               <columns>
                 <TableColumn fx:id="descripcion" prefWidth="126.0" text="Descripción" />
                 <TableColumn fx:id="caracteristicas" prefWidth="99.0" text="Características" />
-                  <TableColumn fx:id="marca" prefWidth="67.0" text="Marca" />
-                  <TableColumn fx:id="tipo" prefWidth="98.0" text="Tipo Producto" />
-                  <TableColumn fx:id="modelo" prefWidth="81.0" text="Modelo" />
-                  <TableColumn fx:id="cantidad" prefWidth="72.0" text="Cantidad" />
-                  <TableColumn fx:id="pvp" minWidth="0.0" prefWidth="66.0" text="PVP" />
-                  <TableColumn fx:id="costo" prefWidth="64.0" text="Costo" />
+                <TableColumn fx:id="marca" prefWidth="67.0" text="Marca" />
+                <TableColumn fx:id="tipo" prefWidth="98.0" text="Tipo Producto" />
+                <TableColumn fx:id="modelo" prefWidth="81.0" text="Modelo" />
+                <TableColumn fx:id="cantidad" prefWidth="72.0" text="Cantidad" />
+                <TableColumn fx:id="pvp" minWidth="0.0" prefWidth="66.0" text="PVP" />
+                <TableColumn fx:id="costo" prefWidth="64.0" text="Costo" />
               </columns>
             </TableView>
          </center>

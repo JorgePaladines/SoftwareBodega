@@ -13,7 +13,7 @@
                <children>
                     <Button fx:id="verInventario" onAction="#handleButtonAction" text="Ver Inventario" />
                   <Button fx:id="insertarProducto" mnemonicParsing="false" onAction="#insertarNuevo" text="Administrar Producto" />
-                  <Button fx:id="retirarProducto" mnemonicParsing="false" onAction="#retirarProd" text="Retirar Producto" />
+                  <Button fx:id="retirarProducto" mnemonicParsing="false" onAction="#retirarProd" text="Eliminar del Inventario" />
                </children>
             </VBox>
          </children></AnchorPane>

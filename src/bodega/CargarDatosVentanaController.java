@@ -6,7 +6,6 @@
 package bodega;
 
 import java.io.IOException;
-import bodega.model.Tabla;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -36,6 +35,8 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import bodega.model.Conexion;
 import bodega.model.Producto;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * FXML Controller class
@@ -69,6 +70,7 @@ public class CargarDatosVentanaController implements Initializable {
     private TableColumn<Producto, Float> costo;
     @FXML
     private Button backButton;
+    
 
     /**
      * Initializes the controller class.
@@ -175,7 +177,7 @@ public class CargarDatosVentanaController implements Initializable {
     //Botón para regresar
     @FXML
     private void back(ActionEvent event) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("Sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Inicio.fxml"));
         Stage stage = (Stage) backButton.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
