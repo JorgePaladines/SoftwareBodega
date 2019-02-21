@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="674.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="javafxapplicationtest.EditarProductoController">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="244.0" layoutY="8.0">
+         <children>
+            <Label fx:id="lEditar" text="EDITAR PRODUCTO">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="lDesc" text="Descripción" />
+            <TextField fx:id="tDesc" />
+            <Label fx:id="lCarac" text="Características" />
+            <TextField fx:id="tCarac" />
+            <Label fx:id="lMarca" text="Marca" />
+            <TextField fx:id="tMarca" />
+            <Label fx:id="lTipo" text="Tipo de Producto" />
+            <TextField fx:id="tTipo" />
+            <Label fx:id="lModelo" text="Modelo" />
+            <TextField fx:id="tModelo" />
+            <Label fx:id="lStock" text="Cantidad en Stock" />
+            <TextField fx:id="tStock" />
+            <Label fx:id="lPVP" text="PVP" />
+            <TextField fx:id="tPVP" />
+            <Label fx:id="lCosto" text="Costo" />
+            <TextField fx:id="tCosto" />
+            <Button fx:id="bCambiar" mnemonicParsing="false" onAction="#submit" text="Cambiar" />
+         </children>
+      </VBox>
+      <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" text="&lt;" />
+   </children>
+</AnchorPane>
