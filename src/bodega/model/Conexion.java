@@ -5,6 +5,7 @@
  */
 package bodega.model;
 import java.sql.*;
+import java.util.LinkedList;
 
 /**
  *
@@ -21,6 +22,8 @@ public class Conexion {
     
     private String dbName = "seguistore";
     
+    private LinkedList<String> listaNombresCampos = new LinkedList<String>();
+    
     public Conexion(){
         Connection conn = null;
         try{
@@ -28,6 +31,22 @@ public class Conexion {
             System.out.println("Connected!");
             
             this.conn = conn;
+            
+            Statement stmnt = (Statement) this.conn.createStatement();
+            String show = "SHOW tables";
+            ResultSet rs = stmnt.executeQuery(show);
+            while(rs.next()){
+                this.listaNombresCampos.add(rs.getString(1));
+            }
+            
+            /*
+            System.out.println("");
+            System.out.println("TABLAS:");
+            
+            for(int i = 0; i < this.listaNombresCampos.size(); i++){
+                System.out.println(this.listaNombresCampos.get(i));
+            }
+            */
         }
         catch(SQLException e){
             System.out.println("ERROR - NO SE PUDO CONECTAR");
@@ -35,20 +54,34 @@ public class Conexion {
         }
     }
     
+    //Retorna el número de los campos, sin considerar la tabla Producto como un campo
+    public int numeroCampos(){
+        return this.listaNombresCampos.size()-1;
+    }
+    
     //Muestra el inventario
     public ResultSet mostrarDatos(){
         ResultSet rs = null;
         try{
             Statement stmnt = (Statement) this.conn.createStatement();
-            String select = "SELECT * FROM productos";
+            //Primero se selecciona todos los productos
+            String select = "SELECT * FROM productos p";
+            //Ahora hay que hacerle left join a cada tipo de campo que existe
+            for(int i = 0; i < this.listaNombresCampos.size()-1; i++){
+                select += " LEFT JOIN "+this.listaNombresCampos.get(i)
+                        + " on p.idProducto = "+this.listaNombresCampos.get(i)+".idProducto";
+            }
+            //System.out.println(select);
             rs = stmnt.executeQuery(select);
             /*while(rs.next()){
                 System.out.println("ID:"+rs.getString(1)+" test_tablecol1:"+rs.getString(2));
             };*/
+
         }
         catch(SQLException e){
             System.err.println(e);
         }
+        
         
         return rs;
     }

@@ -5,6 +5,7 @@
  */
 package bodega;
 
+import bodega.model.Campo;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -52,6 +53,7 @@ public class CargarDatosVentanaController implements Initializable {
     private Button callButton;
     @FXML
     private TableView<Producto> datosTabla;
+    
     private ObservableList<Producto> datos;
     
     private Conexion conexion;
@@ -86,7 +88,7 @@ public class CargarDatosVentanaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         //Hacer la conexión
         this.conexion = new Conexion();
-        
+   
         //Llamar al método que retorna todo el set de productos
         ResultSet rs = this.conexion.mostrarDatos();
 
@@ -99,40 +101,22 @@ public class CargarDatosVentanaController implements Initializable {
         //Recorrer el set y colocar la información del producto en un nuevo objeto Producto
         try{ //Se necesita un try catch por el rs
             
-            /*Se guarda el número de columnas de cada fila.
-            -3 porque uno es el id y dos son fechas que no se ven*/
+            /*Se guarda el número de columnas de cada fila.*/
             rsmd = rs.getMetaData();
-            this.numColumnas = rsmd.getColumnCount() - 3;
+            this.numColumnas = rsmd.getColumnCount();
             
+            /*Esto sólo hace que se llene el Observable List con los productos
+            Va a hacer falta que se muestren los campos correctos
+            
+            Eso lo hace la función mostrarDatos()*/
             while(rs.next()){
-                this.datos.add(new Producto(Integer.parseInt(rs.getString(1)),
-                                        rs.getString(2),
-                                        rs.getString(3),
-                                        rs.getString(4),
-                                        rs.getString(5),
-                                        rs.getString(6),
-                                        Integer.parseInt(rs.getString(7)),
-                                        Float.parseFloat(rs.getString(8)),
-                                        Float.parseFloat(rs.getString(9)),
-                                        rs.getString(10),
-                                        rs.getString(11)
-                                        ));
+                Producto p = new Producto(rs,this.numColumnas);
+                this.datos.add(p);
             };
         }
         catch(SQLException e){
             System.err.println(e);
         }
-        
-        //Hacer que se vean los elementos de la lista
-        //El string al final de cada línea debe llamarse igual que el id de la columna
-        this.descripcion.setCellValueFactory(new PropertyValueFactory<Producto,String>("descripcion"));
-        this.caracteristicas.setCellValueFactory(new PropertyValueFactory<Producto,String>("caracteristicas"));
-        this.marca.setCellValueFactory(new PropertyValueFactory<Producto,String>("marca"));
-        this.tipo.setCellValueFactory(new PropertyValueFactory<Producto,String>("tipo"));
-        this.modelo.setCellValueFactory(new PropertyValueFactory<Producto,String>("modelo"));
-        this.cantidad.setCellValueFactory(new PropertyValueFactory<Producto,Integer>("cantidad"));
-        this.pvp.setCellValueFactory(new PropertyValueFactory<Producto,Float>("pvp"));
-        this.costo.setCellValueFactory(new PropertyValueFactory<Producto,Float>("costo"));
         
         //Función para que se pueda hacer doble clic sobre cada columna y editar el producto
         this.dobleClicEditar();
@@ -186,7 +170,33 @@ public class CargarDatosVentanaController implements Initializable {
     //Cuando se hace clic en el botón "Cargar Datos", se colocan los items en la tabla
     @FXML
     private void cargarDatos(ActionEvent event) {
-        //Estos ya han cargado antes de hacer clic al botón
+        for(int i = 0; i < this.datos.size(); i++){
+            for(int j = 0; j < this.conexion.numeroCampos(); j++){
+                this.datos.get(i).setCampo(j);
+                
+                System.out.println("Campo: "+this.datos.get(i).getCampo());
+                System.out.println("Titulo: "+this.datos.get(i).getTituloCampo(j));
+                
+                TableColumn tc = new TableColumn<Producto,String>();
+                
+                tc.setText(this.datos.get(i).getTituloCampo(j));
+                tc.setCellValueFactory(new PropertyValueFactory<Producto,String>("campo"));
+                
+                this.datosTabla.getColumns().add(tc);
+                
+                System.out.println("");
+            }
+        }
+        
+        this.descripcion.setCellValueFactory(new PropertyValueFactory<Producto,String>("campo"));
+        this.caracteristicas.setCellValueFactory(new PropertyValueFactory<Producto,String>("caracteristicas"));
+        this.marca.setCellValueFactory(new PropertyValueFactory<Producto,String>("marca"));
+        this.tipo.setCellValueFactory(new PropertyValueFactory<Producto,String>("tipo"));
+        this.modelo.setCellValueFactory(new PropertyValueFactory<Producto,String>("modelo"));
+        this.cantidad.setCellValueFactory(new PropertyValueFactory<Producto,Integer>("cantidad"));
+        this.pvp.setCellValueFactory(new PropertyValueFactory<Producto,Float>("pvp"));
+        this.costo.setCellValueFactory(new PropertyValueFactory<Producto,Float>("costo"));
+        
         datosTabla.setItems(datos);
     }
 

@@ -5,6 +5,9 @@
  */
 package bodega.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  *
  * @author SEGUIRESA-PC
@@ -22,7 +25,9 @@ public class Producto {
     
     Por el momento es una idea temporal, ya que no se sabe si realmente se piensa extender
     la cantidad de columnas de los reportes*/
-    ListaCampos listaCampos = new ListaCampos();
+    private ListaCampos listaCampos;
+    
+    private Object campo;
     
     
     private String tipo;
@@ -44,6 +49,16 @@ public class Producto {
         this.cantidad = 1;
         this.pvp = 0.0f;
         this.costo = 0.0f;
+    }
+    
+    public Producto(ResultSet rs, int size) throws SQLException{
+        this.idProducto = Integer.parseInt(rs.getString(1));
+        this.date_created = rs.getString("date_created");
+        this.date_updated = rs.getString("date_updated");
+        
+        this.listaCampos = new ListaCampos();
+        
+        this.listaCampos.llenarLista(idProducto,size,rs);
     }
     
     public Producto(String tipo, String descripcion, String caracteristicas,
@@ -158,6 +173,27 @@ public class Producto {
 
     public void setModelo(String modelo) {
         this.modelo = modelo;
+    }
+
+    public ListaCampos getListaCampos() {
+        return listaCampos;
+    }
+
+    public void setListaCampos(ListaCampos listaCampos) {
+        this.listaCampos = listaCampos;
+    }
+
+    //Obtener un campo específico de la lista de campos
+    public Object getCampo() {
+        return campo;
+    }
+    
+    public String getTituloCampo(int i) {
+        return this.listaCampos.getListaCampos().get(i).getTitulo();
+    }
+
+    public void setCampo(int i) {
+        this.campo = this.listaCampos.getListaCampos().get(i).getCampo();
     }
     
 }

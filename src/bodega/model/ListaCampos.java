@@ -5,6 +5,8 @@
  */
 package bodega.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 /**
@@ -39,7 +41,18 @@ public class ListaCampos {
         this.size = size;
     }
     
-    public void llenarLista(int idProducto){
-
+    public void llenarLista(int idProducto, int size, ResultSet rs) throws SQLException{
+        if(rs.getString(4) == null){
+            return;
+        }
+        for(int i = 4; i <= size; i++){
+            this.listaCampos.add(new Campo(Integer.parseInt(rs.getString(i)),
+                    idProducto,
+                    rs.getString(i+2), //titulo
+                    rs.getString(i+3) //campo
+            ));
+            
+            i = i+5;
+        }
     }
 }
