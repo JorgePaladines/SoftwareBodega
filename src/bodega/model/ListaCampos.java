@@ -53,6 +53,7 @@ public class ListaCampos {
             ));
             
             i = i+5;
+            this.size++;
         }
     }
 }

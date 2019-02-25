@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -33,6 +34,11 @@
             <TextField fx:id="tPVP" />
             <Label fx:id="lCosto" text="Costo" />
             <TextField fx:id="tCosto" />
+            <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+              </content>
+            </ScrollPane>
             <Button fx:id="bCambiar" mnemonicParsing="false" onAction="#submit" text="Cambiar" />
          </children>
       </VBox>

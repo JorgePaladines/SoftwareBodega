@@ -27,9 +27,6 @@ public class Producto {
     la cantidad de columnas de los reportes*/
     private ListaCampos listaCampos;
     
-    private Object campo;
-    
-    
     private String tipo;
     private String descripcion;
     private String caracteristicas;
@@ -184,16 +181,12 @@ public class Producto {
     }
 
     //Obtener un campo específico de la lista de campos
-    public Object getCampo() {
-        return campo;
+    public Campo getCampo(int i) {
+        return this.listaCampos.getListaCampos().get(i);
     }
-    
+
+    //Obtener un titulo específico de la lista de campos
     public String getTituloCampo(int i) {
         return this.listaCampos.getListaCampos().get(i).getTitulo();
     }
-
-    public void setCampo(int i) {
-        this.campo = this.listaCampos.getListaCampos().get(i).getCampo();
-    }
-    
 }

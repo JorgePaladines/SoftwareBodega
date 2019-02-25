@@ -24,8 +24,11 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import bodega.model.Conexion;
 import bodega.model.Producto;
+import javafx.geometry.Pos;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.layout.VBox;
 
 /**
  * FXML Controller class
@@ -75,6 +78,11 @@ public class EditarProductoController implements Initializable {
     private Producto producto;
     @FXML
     private Spinner<Integer> sStock;
+    @FXML
+    private ScrollPane scrollPane; //El ScrollPane es necesario pues puden haber muchos campos agregados, y no se sabe cuántos
+    //Así que se necesita poder colocarlos todos y revisarlos sin cambiar el tamaño de la ventana
+    
+    private int numCampos;
 
     /**
      * Initializes the controller class.
@@ -98,6 +106,21 @@ public class EditarProductoController implements Initializable {
         this.sStock.setValueFactory(valueFactory);
         
         this.tTipo.setText(p.getTipo());
+        
+        //Aquí se va a llenar el ScrollPane
+        VBox contenedor = new VBox(); //VBox para que contenga tantos Labels y TextFields como sea necesario
+        contenedor.setAlignment(Pos.CENTER);
+        
+        //Loop que llena el VBox
+        for(int i = 0; i < p.getListaCampos().getSize(); i++){
+            Label label = new Label(p.getListaCampos().getListaCampos().get(i).getTitulo());
+            TextField textField = new TextField();
+            textField.setText((String)p.getListaCampos().getListaCampos().get(i).getCampo());
+            contenedor.getChildren().addAll(label,textField);
+        }
+        
+        //Colocar el VBox en el ScrollPane
+        this.scrollPane.setContent(contenedor);
     }
 
     @FXML

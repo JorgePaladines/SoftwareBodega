@@ -41,6 +41,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 
 /**
  * FXML Controller class
@@ -170,24 +171,35 @@ public class CargarDatosVentanaController implements Initializable {
     //Cuando se hace clic en el botón "Cargar Datos", se colocan los items en la tabla
     @FXML
     private void cargarDatos(ActionEvent event) {
+        
+        int contar = 0;//Esto será para que no se agreguen más columnas de las que deben ser
+        
         for(int i = 0; i < this.datos.size(); i++){
             for(int j = 0; j < this.conexion.numeroCampos(); j++){
-                this.datos.get(i).setCampo(j);
+                final int finalIdx = j;
+                //this.datos.get(i).setCampo(j);
                 
-                System.out.println("Campo: "+this.datos.get(i).getCampo());
-                System.out.println("Titulo: "+this.datos.get(i).getTituloCampo(j));
+                //System.out.println("Titulo: "+this.datos.get(i).getTituloCampo(j));
+                //System.out.println("Campo: "+this.datos.get(i).getCampo(j).getCampo());
                 
-                TableColumn tc = new TableColumn<Producto,String>();
+                TableColumn<Producto, Object> tc = new TableColumn<Producto,Object>(this.datos.get(i).getTituloCampo(j));
                 
-                tc.setText(this.datos.get(i).getTituloCampo(j));
-                tc.setCellValueFactory(new PropertyValueFactory<Producto,String>("campo"));
+                //Asignar lo que debe leer el campo de texto de la columna
+                tc.setCellValueFactory(param ->
+                    new ReadOnlyObjectWrapper<>(param.getValue().getCampo(finalIdx).getCampo())
+                );
+
+                //Para evitar que se repitan columnas
+                if(contar<this.conexion.numeroCampos()){
+                    this.datosTabla.getColumns().add(tc);
+                    contar++;
+                }
                 
-                this.datosTabla.getColumns().add(tc);
-                
-                System.out.println("");
+                //System.out.println("");
             }
         }
         
+        /*
         this.descripcion.setCellValueFactory(new PropertyValueFactory<Producto,String>("campo"));
         this.caracteristicas.setCellValueFactory(new PropertyValueFactory<Producto,String>("caracteristicas"));
         this.marca.setCellValueFactory(new PropertyValueFactory<Producto,String>("marca"));
@@ -196,6 +208,7 @@ public class CargarDatosVentanaController implements Initializable {
         this.cantidad.setCellValueFactory(new PropertyValueFactory<Producto,Integer>("cantidad"));
         this.pvp.setCellValueFactory(new PropertyValueFactory<Producto,Float>("pvp"));
         this.costo.setCellValueFactory(new PropertyValueFactory<Producto,Float>("costo"));
+        */
         
         datosTabla.setItems(datos);
     }
