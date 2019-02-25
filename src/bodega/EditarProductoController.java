@@ -40,49 +40,18 @@ public class EditarProductoController implements Initializable {
     @FXML
     private Label lEditar;
     @FXML
-    private Label lDesc;
-    @FXML
-    private TextField tDesc;
-    @FXML
-    private Label lCarac;
-    @FXML
-    private TextField tCarac;
-    @FXML
-    private Label lMarca;
-    @FXML
-    private TextField tMarca;
-    @FXML
-    private Label lTipo;
-    @FXML
-    private TextField tTipo;
-    @FXML
-    private Label lModelo;
-    @FXML
-    private TextField tModelo;
-    @FXML
-    private Label lStock;
-    @FXML
-    private Label lPVP;
-    @FXML
-    private TextField tPVP;
-    @FXML
-    private Label lCosto;
-    @FXML
-    private TextField tCosto;
-    @FXML
     private Button bCambiar;
     @FXML
     private Button backButton;
     
-    
     private Producto producto;
-    @FXML
-    private Spinner<Integer> sStock;
     @FXML
     private ScrollPane scrollPane; //El ScrollPane es necesario pues puden haber muchos campos agregados, y no se sabe cuántos
     //Así que se necesita poder colocarlos todos y revisarlos sin cambiar el tamaño de la ventana
     
     private int numCampos;
+    
+    private VBox contenedor;
 
     /**
      * Initializes the controller class.
@@ -94,50 +63,35 @@ public class EditarProductoController implements Initializable {
     //Aquí recibe el parámetro del producto que va a ser editado
     public void initData(Producto p){
         this.producto = p;
-        this.tCarac.setText(p.getCaracteristicas());
-        this.tCosto.setText(Float.toString(p.getCosto()));
-        this.tDesc.setText(p.getDescripcion());
-        this.tMarca.setText(p.getMarca());
-        this.tModelo.setText(p.getModelo());
-        this.tPVP.setText(Float.toString(p.getPvp()));
-        
-        //Para obtener el # y guardarlo en el spinner
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, p.getCantidad());
-        this.sStock.setValueFactory(valueFactory);
-        
-        this.tTipo.setText(p.getTipo());
         
         //Aquí se va a llenar el ScrollPane
-        VBox contenedor = new VBox(); //VBox para que contenga tantos Labels y TextFields como sea necesario
-        contenedor.setAlignment(Pos.CENTER);
+        this.contenedor = new VBox(); //VBox para que contenga tantos Labels y TextFields como sea necesario
+        this.contenedor.setAlignment(Pos.CENTER);
         
         //Loop que llena el VBox
         for(int i = 0; i < p.getListaCampos().getSize(); i++){
             Label label = new Label(p.getListaCampos().getListaCampos().get(i).getTitulo());
             TextField textField = new TextField();
             textField.setText((String)p.getListaCampos().getListaCampos().get(i).getCampo());
-            contenedor.getChildren().addAll(label,textField);
+            this.contenedor.getChildren().addAll(label,textField);
         }
         
         //Colocar el VBox en el ScrollPane
-        this.scrollPane.setContent(contenedor);
+        this.scrollPane.setContent(this.contenedor);
     }
 
     @FXML
     private void submit(ActionEvent event) {
         //Función que se encarga de validar los campos al momento de Insertar o Actualizar un producto
-        boolean camposBienColocados = Validacion.validarProducto(tTipo.getText(), tDesc.getText(),
-                                        tCarac.getText(), tModelo.getText(), Integer.toString(sStock.getValue()),
-                                        tPVP.getText(), tCosto.getText());
+        boolean camposBienColocados = Validacion.validarCampos(this.producto.getListaCampos());
+        
         try{
             if(camposBienColocados){
                 //Se establece la conexión
                 Conexion conn = new Conexion();
                 
                 //Hacer el UPDATE del producto
-                int filasActualizadas = conn.actualizarProducto(producto.getIdProducto(), tTipo.getText(), tDesc.getText(), tCarac.getText(),
-                                    tMarca.getText(), tModelo.getText(), Integer.toString(sStock.getValue()),
-                                    tPVP.getText(), tCosto.getText());
+                int filasActualizadas = conn.actualizarProducto(producto.getIdProducto(), this.producto.getListaCampos().getListaCampos(), this.contenedor);
                 
                 //Si el número de filas es mayor a 0, y en sí, si llega a esta línea, todo salió bien
                 if (filasActualizadas > 0){

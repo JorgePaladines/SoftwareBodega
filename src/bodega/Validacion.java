@@ -5,6 +5,8 @@
  */
 package bodega;
 
+import bodega.model.Campo;
+import bodega.model.ListaCampos;
 import javafx.scene.control.Alert;
 
 /**
@@ -58,6 +60,21 @@ public class Validacion {
             
             camposBienColocados = false;
             
+        }
+        
+        return camposBienColocados;
+    }
+    
+    public static boolean validarCampos(ListaCampos listaCampos){
+        //Este flag se asegurará de que todos los campos estés bien colocados.
+        //Si no es así, se hará false y no se establecerá la conexión con la base de datos
+        boolean camposBienColocados = true;
+        
+        for(Campo c: listaCampos.getListaCampos()){
+            if(c.getCampo().equals("")){
+                camposBienColocados = false;
+                break;
+            }
         }
         
         return camposBienColocados;

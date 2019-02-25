@@ -6,6 +6,8 @@
 package bodega.model;
 import java.sql.*;
 import java.util.LinkedList;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 
 /**
  *
@@ -119,36 +121,29 @@ public class Conexion {
     
     //Actualiza el producto en la base de datos.
     //Si algo sale mal, se lanza la excepción y se debe trapar dentro de la clase que llamó a este método
-    public int actualizarProducto(int id, String tipo, String descripcion, String caracteristicas,
-                                String marca, String modelo, String cantidad,
-                                String pvp, String costo) throws SQLException{
+    public int actualizarProducto(int id, LinkedList<Campo> listaCampos, VBox box) throws SQLException{
+        int filasActualizadas = 0;
+        int textoATomar = 1;
         
-        String sql = "UPDATE productos SET tipo = ?, descripcion = ?, caracteristicas = ?, "
-                + "marca = ?, modelo = ?, cantidad = ?, pvp = ?, costo = ? "
-                + "where idProducto = ?";
+        for(Campo c: listaCampos){
+            String sql = "UPDATE "
+                    + c.getTitulo().toLowerCase()
+                    + " SET campo = '"
+                    + ((TextField)box.getChildren().get(textoATomar)).getText()
+                    + "' where id = "
+                    + c.getId();
+            PreparedStatement stmt = this.conn.prepareStatement(sql);
+            filasActualizadas = stmt.executeUpdate();
+            
+            textoATomar = textoATomar + 2;
+        }
         
+        String sql = "UPDATE productos set idProducto = " + id + " where idProducto = " + id;
         PreparedStatement stmt = this.conn.prepareStatement(sql);
-        
-        stmt.setString(1, tipo);
-        stmt.setString(2, descripcion);
-        stmt.setString(3, caracteristicas);
-        stmt.setString(4, marca);
-        stmt.setString(5, modelo);
-        
-        if(cantidad.equalsIgnoreCase("")) stmt.setInt(6, 1);
-        else stmt.setInt(6, Integer.parseInt(cantidad));
-
-        if(pvp.equalsIgnoreCase("")) stmt.setFloat(7, 0.0f);
-        else stmt.setFloat(7, Float.parseFloat(pvp));
-
-        if(costo.equalsIgnoreCase("")) stmt.setFloat(8, 0.0f);
-        else stmt.setFloat(8, Float.parseFloat(costo));
-        
-        stmt.setInt(9, id);
-        
-        int filasActualizadas = stmt.executeUpdate();
+        filasActualizadas = stmt.executeUpdate();
         
         return filasActualizadas;
+        
     }
     
     //Cerrar la conexión
