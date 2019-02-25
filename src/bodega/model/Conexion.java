@@ -138,7 +138,7 @@ public class Conexion {
             textoATomar = textoATomar + 2;
         }
         
-        String sql = "UPDATE productos set idProducto = " + id + " where idProducto = " + id;
+        String sql = "UPDATE productos set date_updated =  current_timestamp where idProducto = " + id;
         PreparedStatement stmt = this.conn.prepareStatement(sql);
         filasActualizadas = stmt.executeUpdate();
         
