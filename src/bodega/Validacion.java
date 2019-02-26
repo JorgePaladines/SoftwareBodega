@@ -80,4 +80,6 @@ public class Validacion {
         return camposBienColocados;
     }
     
+    
+    
 }

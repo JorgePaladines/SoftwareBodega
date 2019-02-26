@@ -29,6 +29,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import bodega.model.Conexion;
 import bodega.model.Producto;
+import java.sql.ResultSetMetaData;
+import javafx.scene.control.ScrollPane;
 
 /**
  * FXML Controller class
@@ -39,38 +41,6 @@ public class InsertarProductoController implements Initializable {
 
     @FXML
     private Label tituloNuevoProd;
-    @FXML
-    private Label ldesc;
-    @FXML
-    private Label lcar;
-    @FXML
-    private Label lmarc;
-    @FXML
-    private Label ltipo;
-    @FXML
-    private Label lmodel;
-    @FXML
-    private Label lcant;
-    @FXML
-    private Label lpvp;
-    @FXML
-    private Label lcost;
-    @FXML
-    private TextField tdesc;
-    @FXML
-    private TextField tcar;
-    @FXML
-    private TextField tmarc;
-    @FXML
-    private TextField ttipo;
-    @FXML
-    private TextField tmodel;
-    @FXML
-    private TextField tcant;
-    @FXML
-    private TextField tpvp;
-    @FXML
-    private TextField tcost;
     @FXML
     private Button bInsertar;
     @FXML
@@ -90,6 +60,8 @@ public class InsertarProductoController implements Initializable {
     private Label prodNombre;
     @FXML
     private Label prodCantidad;
+    @FXML
+    private ScrollPane scrollPane;
 
     /**
      * Initializes the controller class.
@@ -100,25 +72,35 @@ public class InsertarProductoController implements Initializable {
         ResultSet rs = this.conexion.mostrarDatos();
         this.datos = FXCollections.observableArrayList();
         
+        this.llenarComboBox(rs);
+        
+        this.comboBox.setItems(this.datos);
+    }
+    
+    //Esto se encargará de llenar el comboBox para modificar el Stock
+    private void llenarComboBox(ResultSet rs){
         try{
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnas = rsmd.getColumnCount(); //número de columnas
+            String agregar;
             while(rs.next()){
-                this.datos.add(rs.getString(2)+" - "+rs.getString(3)+" ["+rs.getString("cantidad")+"]");
-            };
+                agregar = "";
+                for(int i = 7; i < columnas; i = i + 6){
+                    agregar += rs.getString(i);
+                }
+                this.datos.add(agregar + " - Stock: ");
+            }
         }
         catch(SQLException e){
             System.err.println(e);
         }
-        
-        this.comboBox.setItems(this.datos);
     }
 
     //Método para insertar un nuevo producto
     @FXML
     private void callInsertar(ActionEvent event) {
         //Función que se encarga de validar los campos al momento de Insertar o Actualizar un producto
-        boolean camposBienColocados = Validacion.validarProducto(ttipo.getText(), tdesc.getText(),
-                                        tcar.getText(), tmodel.getText(), tcant.getText(),
-                                        tpvp.getText(), tcost.getText());
+        /*boolean camposBienColocados = Validacion.validarProducto();
         
         //Si todo está bien, se establece la conexión y se mandan los campos a la función
         //para insertar el producto
@@ -160,7 +142,7 @@ public class InsertarProductoController implements Initializable {
             alert.setHeaderText("INGRESO DE PRODUCTO FALLIDO");
             alert.setContentText("No se ha podido insertar el nuevo producto en la base de datos");
             alert.showAndWait();
-        }
+        }*/
     }
 
     @FXML

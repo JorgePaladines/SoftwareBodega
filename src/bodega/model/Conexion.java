@@ -75,15 +75,11 @@ public class Conexion {
             }
             //System.out.println(select);
             rs = stmnt.executeQuery(select);
-            /*while(rs.next()){
-                System.out.println("ID:"+rs.getString(1)+" test_tablecol1:"+rs.getString(2));
-            };*/
 
         }
         catch(SQLException e){
             System.err.println(e);
         }
-        
         
         return rs;
     }

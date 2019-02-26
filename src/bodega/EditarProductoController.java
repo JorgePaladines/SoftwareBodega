@@ -24,10 +24,12 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import bodega.model.Conexion;
 import bodega.model.Producto;
+import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -67,6 +69,7 @@ public class EditarProductoController implements Initializable {
         //Aquí se va a llenar el ScrollPane
         this.contenedor = new VBox(); //VBox para que contenga tantos Labels y TextFields como sea necesario
         this.contenedor.setAlignment(Pos.CENTER);
+
         
         //Loop que llena el VBox
         for(int i = 0; i < p.getListaCampos().getSize(); i++){
@@ -76,8 +79,13 @@ public class EditarProductoController implements Initializable {
             this.contenedor.getChildren().addAll(label,textField);
         }
         
-        //Colocar el VBox en el ScrollPane
-        this.scrollPane.setContent(this.contenedor);
+        //Colocar el VBox en un StackPane para que se centre
+        StackPane paneHolder = new StackPane(this.contenedor);
+        //Colocar el StackPane en el ScrollPane
+        this.scrollPane.setContent(paneHolder);
+        //Esta línea hace que se centre todo
+        paneHolder.minWidthProperty().bind(Bindings.createDoubleBinding(() -> 
+        this.scrollPane.getViewportBounds().getWidth(), this.scrollPane.viewportBoundsProperty()));
     }
 
     @FXML
