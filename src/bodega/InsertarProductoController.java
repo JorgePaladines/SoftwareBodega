@@ -31,6 +31,9 @@ import bodega.model.Conexion;
 import bodega.model.Producto;
 import java.sql.ResultSetMetaData;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Spinner;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 /**
  * FXML Controller class
@@ -50,7 +53,7 @@ public class InsertarProductoController implements Initializable {
     @FXML
     private ComboBox<String> comboBox;
     @FXML
-    private TextField modifCantText;
+    private Spinner<Integer> modifCantText;
     @FXML
     private Text nota;
     
@@ -72,9 +75,12 @@ public class InsertarProductoController implements Initializable {
         ResultSet rs = this.conexion.mostrarDatos();
         this.datos = FXCollections.observableArrayList();
         
+        //Llenar el combobox
         this.llenarComboBox(rs);
-        
         this.comboBox.setItems(this.datos);
+        
+        //Llenar el ScrollPane
+        this.llenarScrollPane();
     }
     
     //Esto se encargará de llenar el comboBox para modificar el Stock
@@ -85,9 +91,7 @@ public class InsertarProductoController implements Initializable {
             String agregar;
             while(rs.next()){
                 agregar = "";
-                for(int i = 7; i < columnas; i = i + 6){
-                    agregar += rs.getString(i);
-                }
+                agregar += rs.getString(7); //El "7" es donde se ubica el campo de Descripcion
                 this.datos.add(agregar + " - Stock: ");
             }
         }
@@ -95,12 +99,26 @@ public class InsertarProductoController implements Initializable {
             System.err.println(e);
         }
     }
+    
+    private void llenarScrollPane(){
+        VBox vbox = new VBox();
+        vbox.setSpacing(10);
+        for(int i = 0; i < this.conexion.numeroCampos(); i++){
+            String tituloCampo = this.conexion.obtenerCamposNombres().get(i);
+            String textoALabel = tituloCampo.substring(0, 1).toUpperCase() + tituloCampo.substring(1) + ":  ";
+            Label label = new Label(textoALabel);
+            TextField field = new TextField();
+            HBox box = new HBox(label, field);
+            vbox.getChildren().add(box);
+        }
+        this.scrollPane.setContent(vbox);
+    }
 
     //Método para insertar un nuevo producto
     @FXML
     private void callInsertar(ActionEvent event) {
         //Función que se encarga de validar los campos al momento de Insertar o Actualizar un producto
-        /*boolean camposBienColocados = Validacion.validarProducto();
+        boolean camposBienColocados = Validacion.validarTextFields((VBox)this.scrollPane.getContent());
         
         //Si todo está bien, se establece la conexión y se mandan los campos a la función
         //para insertar el producto
@@ -109,9 +127,7 @@ public class InsertarProductoController implements Initializable {
                 Conexion conn = new Conexion();
                 
                 //Hacer el INSERT del producto
-                int filasIngresadas = conn.insertarProducto(ttipo.getText(), tdesc.getText(), tcar.getText(),
-                                    tmarc.getText(), tmodel.getText(), tcant.getText(),
-                                    tpvp.getText(), tcost.getText());
+                int filasIngresadas = conn.insertarProducto((VBox)this.scrollPane.getContent());
                 
                 //Si el número de filas es mayor a 0, y en sí, si llega a esta línea, todo salió bien
                 if (filasIngresadas > 0){
@@ -122,15 +138,14 @@ public class InsertarProductoController implements Initializable {
                     alert.setContentText("Se ha insertado exitosamente el nuevo producto en la base de datos");
                     alert.showAndWait();
                 }
-                
-                //Probar que se pueda cerrar la conexión
-                try{
-                    conn.close();
-                }
-                catch(SQLException e){
-                    System.err.println(e);
-                    System.out.println("ERROR AL CERRAR LA CONEXIÓN");
-                }
+            }
+            else{
+                System.out.println("Campos mal colocados");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("");
+                alert.setHeaderText("CAMPOS LLENADOS INCORRECTAMENTE");
+                alert.setContentText("Revise que todos los campos estén bien colocados");
+                alert.showAndWait();
             }
         }
         //Si hubo un problema al insertar el producto en la base de datos, se manda la alerta correspondiente
@@ -142,11 +157,19 @@ public class InsertarProductoController implements Initializable {
             alert.setHeaderText("INGRESO DE PRODUCTO FALLIDO");
             alert.setContentText("No se ha podido insertar el nuevo producto en la base de datos");
             alert.showAndWait();
-        }*/
+        }
     }
 
     @FXML
     private void back(ActionEvent event) throws IOException{
+        //Cerrar la conexión antes de salir de la ventana
+        try{
+         this.conexion.close();   
+        }
+        catch(SQLException e){
+            System.err.println(e);
+        }
+        
         Parent root = FXMLLoader.load(getClass().getResource("Inicio.fxml"));
         Stage stage = (Stage) backButton.getScene().getWindow();
         Scene scene = new Scene(root);
@@ -157,8 +180,8 @@ public class InsertarProductoController implements Initializable {
     private void comboSelect(ActionEvent event) {
         String output = comboBox.getSelectionModel().getSelectedItem().toString();
         
-        this.prodNombre.setText(output.split(" ")[2]+":");
-        this.prodCantidad.setText(output.split(" ")[3].split("")[1]+" en stock");
+        this.prodNombre.setText(output.split(" ")[0]+":");
+        //this.prodCantidad.setText(output.split(" ")[3].split("")[1]+" en stock");
     }
     
     

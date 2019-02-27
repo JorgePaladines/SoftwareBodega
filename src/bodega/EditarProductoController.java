@@ -91,7 +91,7 @@ public class EditarProductoController implements Initializable {
     @FXML
     private void submit(ActionEvent event) {
         //Función que se encarga de validar los campos al momento de Insertar o Actualizar un producto
-        boolean camposBienColocados = Validacion.validarCampos(this.producto.getListaCampos());
+        boolean camposBienColocados = Validacion.validarCampos(this.contenedor, this.producto.getListaCampos().getListaCampos());
         
         try{
             if(camposBienColocados){
@@ -119,6 +119,14 @@ public class EditarProductoController implements Initializable {
                     System.err.println(e);
                     System.out.println("ERROR AL CERRAR LA CONEXIÓN");
                 }
+            }
+            else{
+                System.out.println("Campos mal colocados");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("");
+                alert.setHeaderText("CAMPOS LLENADOS INCORRECTAMENTE");
+                alert.setContentText("Revise que todos los campos estén bien colocados");
+                alert.showAndWait();
             }
         }
         //Si hubo un problema al actualizar el producto en la base de datos, se manda la alerta correspondiente

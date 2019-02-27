@@ -59,22 +59,6 @@ public class CargarDatosVentanaController implements Initializable {
     
     private Conexion conexion;
     @FXML
-    private TableColumn<Producto, String> descripcion;
-    @FXML
-    private TableColumn<Producto, String> caracteristicas;
-    @FXML
-    private TableColumn<Producto, String> marca;
-    @FXML
-    private TableColumn<Producto, String> tipo;
-    @FXML
-    private TableColumn<Producto, String> modelo;
-    @FXML
-    private TableColumn<Producto, Integer> cantidad;
-    @FXML
-    private TableColumn<Producto, Float> pvp;
-    @FXML
-    private TableColumn<Producto, Float> costo;
-    @FXML
     private Button backButton;
 
     /*Esto servirá para que se muestre en el UI todas las columnas que tiene el producto del inventario
@@ -198,24 +182,19 @@ public class CargarDatosVentanaController implements Initializable {
                 //System.out.println("");
             }
         }
-        
-        /*
-        this.descripcion.setCellValueFactory(new PropertyValueFactory<Producto,String>("campo"));
-        this.caracteristicas.setCellValueFactory(new PropertyValueFactory<Producto,String>("caracteristicas"));
-        this.marca.setCellValueFactory(new PropertyValueFactory<Producto,String>("marca"));
-        this.tipo.setCellValueFactory(new PropertyValueFactory<Producto,String>("tipo"));
-        this.modelo.setCellValueFactory(new PropertyValueFactory<Producto,String>("modelo"));
-        this.cantidad.setCellValueFactory(new PropertyValueFactory<Producto,Integer>("cantidad"));
-        this.pvp.setCellValueFactory(new PropertyValueFactory<Producto,Float>("pvp"));
-        this.costo.setCellValueFactory(new PropertyValueFactory<Producto,Float>("costo"));
-        */
-        
         datosTabla.setItems(datos);
     }
 
     //Botón para regresar
     @FXML
     private void back(ActionEvent event) throws IOException{
+        try{
+         this.conexion.close();   
+        }
+        catch(SQLException e){
+            System.err.println(e);
+        }
+        
         Parent root = FXMLLoader.load(getClass().getResource("Inicio.fxml"));
         Stage stage = (Stage) backButton.getScene().getWindow();
         Scene scene = new Scene(root);

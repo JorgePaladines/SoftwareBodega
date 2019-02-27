@@ -7,7 +7,11 @@ package bodega;
 
 import bodega.model.Campo;
 import bodega.model.ListaCampos;
+import java.util.LinkedList;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 /**
  * Clase que se encarga de validar los campos al momento de Insertar o Actualizar un producto
@@ -59,27 +63,75 @@ public class Validacion {
             alert.showAndWait();
             
             camposBienColocados = false;
+        }
+        
+        return camposBienColocados;
+    }
+    
+    //Valida en la actualización de un producto
+    public static boolean validarCampos(VBox contenedor, LinkedList<Campo> campos){
+        //Este flag se asegurará de que todos los campos estés bien colocados.
+        //Si no es así, se hará false y no se establecerá la conexión con la base de datos
+        boolean camposBienColocados = true;
+        
+        int indexCampo = 0; //Esto servirá para que el programa recorra la lista de campos al mismo tiempo
+                      //que recorre la lista de Nodos del VBox
+        //Se lo necesita para revisar tabla por tabla qué tipo es.
+        //Y si es un número, se lo valida como tal
+        for(int i = 1; i < contenedor.getChildren().size(); i = i + 2){
+            //Si está vacío el campo, entonces retorna FALSE
+            if(((TextField)contenedor.getChildren().get(i)).getText().equals("")){
+                camposBienColocados = false;
+                break;
+            }
+            //Si está mal escrito el campo de un Integer, entonces retorna FALSE
+            if(campos.get(indexCampo).getTipo().equals("Integer")){
+                //Se lo intenta convertir
+                try{
+                    Integer.parseInt((String) campos.get(indexCampo).getCampo());
+                    //Si no hay problema el for prosigue
+                }
+                //Pero si sale mal entonces se avisa que el campo está mal colocado
+                catch(NumberFormatException e){
+                    System.out.println("Campo de número mal llenado");
+                    e.printStackTrace();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("");
+                    alert.setHeaderText("CAMPO MAL LLENADO");
+                    alert.setContentText("Uno de los campos no ha sido llenado con datos erróneos");
+                    alert.showAndWait();
+                    
+                    camposBienColocados = false;
+                    break;
+                }
+            }
+            
+            indexCampo++;
+        }
+        
+        return camposBienColocados;
+    }
+    
+    //Valida en la inserción de un nuevo producto
+    public static boolean validarTextFields(VBox contenedor){
+        //Este flag se asegurará de que todos los campos estés bien colocados.
+        //Si no es así, se hará false y no se establecerá la conexión con la base de datos
+        boolean camposBienColocados = true;
+        
+        //Lo que contiene el VBox deberían ser HBox's que contienen el label y el textfield
+        for(int i = 0; i < contenedor.getChildren().size(); i++){
+            //Cada HBox que contiene el VBox
+            HBox hboxInterno = (HBox) contenedor.getChildren().get(i);
+            //Cada TextField de los HBox
+            TextField tf = (TextField)hboxInterno.getChildren().get(1);
+            if(tf.getText().equals("")){
+                camposBienColocados = false;
+                break;
+            }
             
         }
         
         return camposBienColocados;
     }
-    
-    public static boolean validarCampos(ListaCampos listaCampos){
-        //Este flag se asegurará de que todos los campos estés bien colocados.
-        //Si no es así, se hará false y no se establecerá la conexión con la base de datos
-        boolean camposBienColocados = true;
-        
-        for(Campo c: listaCampos.getListaCampos()){
-            if(c.getCampo().equals("")){
-                camposBienColocados = false;
-                break;
-            }
-        }
-        
-        return camposBienColocados;
-    }
-    
-    
     
 }

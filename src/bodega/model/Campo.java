@@ -17,12 +17,14 @@ public class Campo {
     private int idProducto;
     private String titulo;
     private Object campo;
+    private String tipo;
     
-    public Campo(int idCampo, int idProducto, String titulo, Object campo){
+    public Campo(int idCampo, int idProducto, String titulo, Object campo, String tipo){
         this.id = idCampo;
         this.titulo = titulo;
         this.idProducto = idProducto;
         this.campo = campo;
+        this.tipo = tipo;
     }
 
     public int getId() {
@@ -56,4 +58,13 @@ public class Campo {
     public void setCampo(String campo) {
         this.campo = campo;
     }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+    
 }

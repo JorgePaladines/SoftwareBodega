@@ -45,14 +45,14 @@ public class ListaCampos {
         if(rs.getString(4) == null){
             return;
         }
-        for(int i = 4; i <= size; i++){
+        for(int i = 4; i <= size; i = i + 7){
             this.listaCampos.add(new Campo(Integer.parseInt(rs.getString(i)),
                     idProducto,
                     rs.getString(i+2), //titulo
-                    rs.getString(i+3) //campo
+                    rs.getString(i+3), //campo
+                    rs.getString(i+4) //tipo
             ));
-            
-            i = i+5;
+
             this.size++;
         }
     }

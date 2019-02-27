@@ -7,6 +7,7 @@ package bodega.model;
 import java.sql.*;
 import java.util.LinkedList;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
@@ -17,8 +18,7 @@ public class Conexion {
     
     private String USERNAME="root";
     private String PASSWORD="mysqlseguiresapass";
-    private String CONN_STRING=
-            "jdbc:mysql://10.0.10.50:3306/seguistore";
+    private String CONN_STRING="jdbc:mysql://10.0.10.50:3306/seguistore";
     
     private Connection conn;
     
@@ -61,6 +61,10 @@ public class Conexion {
         return this.listaNombresCampos.size()-1;
     }
     
+    public LinkedList<String> obtenerCamposNombres(){
+        return this.listaNombresCampos;
+    }
+    
     //Muestra el inventario
     public ResultSet mostrarDatos(){
         ResultSet rs = null;
@@ -86,15 +90,36 @@ public class Conexion {
     
     //Inserta el producto en la base de datos.
     //Si algo sale mal, se lanza la excepción y se debe trapar dentro de la clase que llamó a este método
-    public int insertarProducto(String tipo, String descripcion, String caracteristicas,
-                                String marca,String modelo, String cantidad,
-                                String pvp, String costo) throws SQLException{
+    public int insertarProducto(VBox contenedor) throws SQLException{
         
+            //Primero crear un nuevo producto
+            /*String insertProducto = "INSERT INTO productos VALUES()";
+            PreparedStatement  stmt = this.conn.prepareStatement(insertProducto);
+            int filasIngresadas = stmt.executeUpdate();
+            
+            //Luego obtener el idProducto que fue insertado
+            String ultimoID = "SELECT MAX(idProducto) FROM productos";
+            Statement stmnt = (Statement) this.conn.createStatement();
+            ResultSet rs = stmnt.executeQuery(ultimoID);
+            rs.next();
+            //Aqui está:
+            int idProducto = Integer.parseInt(rs.getString(1));*/
+
+            /*Ahora iterar a través de todas las tablas de los distintos campos
+            y llenarlas con lo que colocó el usuario*/
+            
+            for(int i = 0; i < contenedor.getChildren().size(); i++){
+                //Se obtiene cada TextField
+                TextField tf = (TextField)((HBox)contenedor.getChildren().get(i)).getChildren().get(1);
+                //El texto dentro de cada TextField
+                String texto = tf.getText();
+                System.out.println(texto);
+            }
+            
+            /*
             String sql = "INSERT INTO productos(tipo, descripcion, caracteristicas, "
                     + "marca, modelo, cantidad, pvp, costo ) "
                     + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-            
-            PreparedStatement  stmt = this.conn.prepareStatement(sql);
             
             stmt.setString(1, tipo);
             stmt.setString(2, descripcion);
@@ -111,8 +136,8 @@ public class Conexion {
             if(costo.equalsIgnoreCase("")) stmt.setFloat(8, 0.0f);
             else stmt.setFloat(8, Float.parseFloat(costo));
 
-            int filasIngresadas = stmt.executeUpdate();
-            return filasIngresadas;   
+            filasIngresadas = stmt.executeUpdate();*/
+            return 1;   
     }
     
     //Actualiza el producto en la base de datos.
