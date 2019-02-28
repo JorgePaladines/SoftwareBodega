@@ -54,12 +54,15 @@ public class EditarProductoController implements Initializable {
     private int numCampos;
     
     private VBox contenedor;
+    
+    private Conexion conexion;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        this.conexion = new Conexion();
     }
     
     //Aquí recibe el parámetro del producto que va a ser editado
@@ -91,15 +94,12 @@ public class EditarProductoController implements Initializable {
     @FXML
     private void submit(ActionEvent event) {
         //Función que se encarga de validar los campos al momento de Insertar o Actualizar un producto
-        boolean camposBienColocados = Validacion.validarCampos(this.contenedor, this.producto.getListaCampos().getListaCampos());
+        boolean camposBienColocados = Validacion.validarEditar(this.contenedor, this.conexion.obtenerTiposDeCampos());
         
         try{
             if(camposBienColocados){
-                //Se establece la conexión
-                Conexion conn = new Conexion();
-                
                 //Hacer el UPDATE del producto
-                int filasActualizadas = conn.actualizarProducto(producto.getIdProducto(), this.producto.getListaCampos().getListaCampos(), this.contenedor);
+                int filasActualizadas = this.conexion.actualizarProducto(producto.getIdProducto(), this.producto.getListaCampos().getListaCampos(), this.contenedor);
                 
                 //Si el número de filas es mayor a 0, y en sí, si llega a esta línea, todo salió bien
                 if (filasActualizadas > 0){
@@ -111,14 +111,6 @@ public class EditarProductoController implements Initializable {
                     alert.showAndWait();
                 }
                 
-                //Probar que se pueda cerrar la conexión
-                try{
-                    conn.close();
-                }
-                catch(SQLException e){
-                    System.err.println(e);
-                    System.out.println("ERROR AL CERRAR LA CONEXIÓN");
-                }
             }
             else{
                 System.out.println("Campos mal colocados");
@@ -145,6 +137,14 @@ public class EditarProductoController implements Initializable {
 
     @FXML
     private void back(ActionEvent event) throws IOException{
+        //Probar que se pueda cerrar la conexión
+        try{
+            this.conexion.close();
+        }
+        catch(SQLException e){
+            System.err.println(e);
+            System.out.println("ERROR AL CERRAR LA CONEXIÓN");
+        }
         Parent root = FXMLLoader.load(getClass().getResource("CargarDatosVentana.fxml"));
         Stage stage = (Stage) backButton.getScene().getWindow();
         Scene scene = new Scene(root);

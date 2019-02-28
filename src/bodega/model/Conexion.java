@@ -25,6 +25,7 @@ public class Conexion {
     private String dbName = "seguistore";
     
     private LinkedList<String> listaNombresCampos = new LinkedList<String>();
+    private LinkedList<String> listaTiposDeCampos =  new LinkedList<String>();
     
     public Conexion(){
         Connection conn = null;
@@ -34,21 +35,24 @@ public class Conexion {
             
             this.conn = conn;
             
+            //Llenar la lista de los nombres de los campos
             Statement stmnt = (Statement) this.conn.createStatement();
-            String show = "SHOW tables";
-            ResultSet rs = stmnt.executeQuery(show);
+            String sql = "SHOW tables";
+            ResultSet rs = stmnt.executeQuery(sql);
             while(rs.next()){
                 this.listaNombresCampos.add(rs.getString(1));
             }
             
-            /*
-            System.out.println("");
-            System.out.println("TABLAS:");
-            
-            for(int i = 0; i < this.listaNombresCampos.size(); i++){
-                System.out.println(this.listaNombresCampos.get(i));
+            //Llenar la lista de los Tipos de los Campos
+            sql = "SELECT * FROM ";
+            for(int i = 0; i < this.numeroCampos(); i++){
+                String tablaNombre = this.listaNombresCampos.get(i);
+                String query = sql + tablaNombre;
+                rs = stmnt.executeQuery(query);
+                rs.next();
+                this.listaTiposDeCampos.add(rs.getString("Tipo"));
             }
-            */
+
         }
         catch(SQLException e){
             System.out.println("ERROR - NO SE PUDO CONECTAR");
@@ -64,6 +68,11 @@ public class Conexion {
     public LinkedList<String> obtenerCamposNombres(){
         return this.listaNombresCampos;
     }
+
+    public LinkedList<String> obtenerTiposDeCampos() {
+        return listaTiposDeCampos;
+    }
+    
     
     //Muestra el inventario
     public ResultSet mostrarDatos(){

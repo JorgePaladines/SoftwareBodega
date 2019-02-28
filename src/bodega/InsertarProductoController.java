@@ -118,16 +118,14 @@ public class InsertarProductoController implements Initializable {
     @FXML
     private void callInsertar(ActionEvent event) {
         //Función que se encarga de validar los campos al momento de Insertar o Actualizar un producto
-        boolean camposBienColocados = Validacion.validarTextFields((VBox)this.scrollPane.getContent());
+        boolean camposBienColocados = Validacion.validarInsertar((VBox)this.scrollPane.getContent(),this.conexion.obtenerTiposDeCampos());
         
         //Si todo está bien, se establece la conexión y se mandan los campos a la función
         //para insertar el producto
         try{
             if(camposBienColocados){
-                Conexion conn = new Conexion();
-                
                 //Hacer el INSERT del producto
-                int filasIngresadas = conn.insertarProducto((VBox)this.scrollPane.getContent());
+                int filasIngresadas = this.conexion.insertarProducto((VBox)this.scrollPane.getContent());
                 
                 //Si el número de filas es mayor a 0, y en sí, si llega a esta línea, todo salió bien
                 if (filasIngresadas > 0){
