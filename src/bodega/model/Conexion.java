@@ -102,7 +102,7 @@ public class Conexion {
     public int insertarProducto(VBox contenedor) throws SQLException{
         
             //Primero crear un nuevo producto
-            /*String insertProducto = "INSERT INTO productos VALUES()";
+            String insertProducto = "INSERT INTO productos VALUES()";
             PreparedStatement  stmt = this.conn.prepareStatement(insertProducto);
             int filasIngresadas = stmt.executeUpdate();
             
@@ -112,41 +112,34 @@ public class Conexion {
             ResultSet rs = stmnt.executeQuery(ultimoID);
             rs.next();
             //Aqui está:
-            int idProducto = Integer.parseInt(rs.getString(1));*/
+            int idProducto = Integer.parseInt(rs.getString(1));
 
             /*Ahora iterar a través de todas las tablas de los distintos campos
             y llenarlas con lo que colocó el usuario*/
-            
             for(int i = 0; i < contenedor.getChildren().size(); i++){
                 //Se obtiene cada TextField
                 TextField tf = (TextField)((HBox)contenedor.getChildren().get(i)).getChildren().get(1);
                 //El texto dentro de cada TextField
                 String texto = tf.getText();
-                System.out.println(texto);
+                
+                String sql = "INSERT INTO " + this.listaNombresCampos.get(i) 
+                        + "(idProducto, titulo, campo, tipo) VALUES(?, ?, ?, ?)";
+                
+                stmt = this.conn.prepareStatement(sql);
+                //id del producto
+                stmt.setInt(1, idProducto);
+                //Titulo del Campo. El que aparecerá en el inventario
+                stmt.setString(2, this.listaNombresCampos.get(i).substring(0,1).toUpperCase()
+                                    + this.listaNombresCampos.get(i).substring(1));
+                //El texto del campo
+                stmt.setString(3, texto);
+                //El tipo de campo que es. String, Float o Integer
+                stmt.setString(4, this.listaTiposDeCampos.get(i));
+                
+                filasIngresadas = stmt.executeUpdate();
             }
-            
-            /*
-            String sql = "INSERT INTO productos(tipo, descripcion, caracteristicas, "
-                    + "marca, modelo, cantidad, pvp, costo ) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-            
-            stmt.setString(1, tipo);
-            stmt.setString(2, descripcion);
-            stmt.setString(3, caracteristicas);
-            stmt.setString(4, marca);
-            stmt.setString(5, modelo);
 
-            if(cantidad.equalsIgnoreCase("")) stmt.setInt(6, 1);
-            else stmt.setInt(6, Integer.parseInt(cantidad));
-
-            if(pvp.equalsIgnoreCase("")) stmt.setFloat(7, 0.0f);
-            else stmt.setFloat(7, Float.parseFloat(pvp));
-
-            if(costo.equalsIgnoreCase("")) stmt.setFloat(8, 0.0f);
-            else stmt.setFloat(8, Float.parseFloat(costo));
-
-            filasIngresadas = stmt.executeUpdate();*/
-            return 1;   
+            return filasIngresadas;   
     }
     
     //Actualiza el producto en la base de datos.

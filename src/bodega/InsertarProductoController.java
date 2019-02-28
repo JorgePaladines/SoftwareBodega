@@ -91,7 +91,7 @@ public class InsertarProductoController implements Initializable {
             String agregar;
             while(rs.next()){
                 agregar = "";
-                agregar += rs.getString(7); //El "7" es donde se ubica el campo de Descripcion
+                agregar += rs.getString(7) + " " + rs.getString(14); //El "7" es donde se ubica el campo de Descripcion
                 this.datos.add(agregar + " - Stock: ");
             }
         }

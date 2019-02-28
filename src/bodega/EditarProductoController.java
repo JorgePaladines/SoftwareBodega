@@ -110,7 +110,6 @@ public class EditarProductoController implements Initializable {
                     alert.setContentText("Se ha actualizado exitosamente el producto en la base de datos");
                     alert.showAndWait();
                 }
-                
             }
             else{
                 System.out.println("Campos mal colocados");
