@@ -40,6 +40,8 @@ public class InicioController implements Initializable {
     private Button insertarProducto;
     @FXML
     private Button retirarProducto;
+    @FXML
+    private Button administrarCampos;
     
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException{
@@ -64,9 +66,16 @@ public class InicioController implements Initializable {
         stage.setScene(scene);
 
     }
+    
+    @FXML
+    private void adminisCampos(ActionEvent event) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("AdministrarCamposVentana.fxml"));
+        Stage stage = (Stage) insertarProducto.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+    }
 
     @FXML
     private void retirarProd(ActionEvent event) throws IOException{
     }
-    
 }
