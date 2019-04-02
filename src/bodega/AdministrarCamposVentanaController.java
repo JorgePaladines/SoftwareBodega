@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -56,6 +58,7 @@ public class AdministrarCamposVentanaController implements Initializable {
     private Button bEliminar;
     @FXML
     private ChoiceBox<String> choiceCampo;
+
     
     /**
      * Initializes the controller class.
@@ -63,6 +66,18 @@ public class AdministrarCamposVentanaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.conexion = new Conexion();
+        //Se llenan los choiceboxes
+        //Primero la lista de tipos de campos: String, Integer o Float
+        ObservableList<String> tiposDeCampos = FXCollections.observableArrayList();
+        tiposDeCampos.addAll("String","Integer","Float");
+        this.choiceTipo.setItems(tiposDeCampos);
+        
+        //Luego la lista de campos existentes. Estos pueden ser seleccionados para ser eliminados
+        ObservableList<String> nombresCampos = FXCollections.observableArrayList();
+        nombresCampos.setAll(this.conexion.obtenerCamposNombres());
+        nombresCampos.remove(nombresCampos.size()-1); //Se le resta 1 puesto que la lista arrojada contiene
+        //la palabra "productos", lo que no es un campo a eliminar
+        this.choiceCampo.setItems(nombresCampos);
     }
 
     @FXML
@@ -78,6 +93,33 @@ public class AdministrarCamposVentanaController implements Initializable {
 
     @FXML
     private void crearCampo(ActionEvent event) {
+        String nombre = this.tNombre.getText();
+        String tipo = this.choiceTipo.getValue();
+        boolean datosBienColocados = true;
+        boolean creacionExitosa = true;
+        
+        if(nombre.equalsIgnoreCase("")){
+            System.out.println("Nombre vacío");
+            datosBienColocados = false;
+        }
+        if(tipo == null){
+            System.out.println("Tipo vacío");
+            datosBienColocados = false;
+        }
+        if(datosBienColocados){
+            //System.out.println(nombre);
+            //System.out.println(tipo);
+            nombre = nombre.toLowerCase();
+            creacionExitosa = this.conexion.crearCampo(nombre, tipo);
+        }
+        else{
+            creacionExitosa = false;
+            //Mandar alerta
+        }
+        
+        if(creacionExitosa){
+            
+        }
     }
 
     @FXML

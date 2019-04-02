@@ -46,6 +46,8 @@ public class ListaCampos {
             return;
         }
         for(int i = 4; i <= size; i = i + 7){
+            //System.out.println(size);
+            //System.out.println(i);
             this.listaCampos.add(new Campo(Integer.parseInt(rs.getString(i)),
                     idProducto,
                     rs.getString(i+2), //titulo

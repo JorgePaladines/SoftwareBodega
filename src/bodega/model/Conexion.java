@@ -26,6 +26,7 @@ public class Conexion {
     
     private LinkedList<String> listaNombresCampos = new LinkedList<String>();
     private LinkedList<String> listaTiposDeCampos =  new LinkedList<String>();
+    private LinkedList<Integer> listaIdsProductos =  new LinkedList<Integer>();
     
     public Conexion(){
         Connection conn = null;
@@ -52,10 +53,17 @@ public class Conexion {
                 rs.next();
                 this.listaTiposDeCampos.add(rs.getString("Tipo"));
             }
+            
+            //Llenar la lista de los IDs de los productos
+            sql = "SELECT * FROM productos";
+            rs = stmnt.executeQuery(sql);
+            while(rs.next())
+                this.listaIdsProductos.add(Integer.parseInt(rs.getString(1)));
 
         }
         catch(SQLException e){
             System.out.println("ERROR - NO SE PUDO CONECTAR");
+            e.printStackTrace();
             System.err.println(e);
         }
     }
@@ -166,7 +174,48 @@ public class Conexion {
         filasActualizadas = stmt.executeUpdate();
         
         return filasActualizadas;
-        
+    }
+    
+    //Método para crear un nuevo campo desde la ventana de "Administrar Campos"
+    public boolean crearCampo(String nombre, String tipo){
+        Statement stmt = null;
+        try{
+            stmt = this.conn.createStatement();
+            String sql = "CREATE TABLE " + nombre + " (" +
+                    "id int(11) unsigned auto_increment primary key, " +
+                    "idProducto int(11) unsigned, " +
+                    "titulo varchar(50), " +
+                    "campo varchar(50) not null, " +
+                    "tipo varchar(20) default '"+ tipo + "', " +
+                    "date_created timestamp default current_timestamp, " +
+                    "date_updated timestamp default current_timestamp on update current_timestamp, " +
+                    "foreign key(idProducto) references productos(idProducto))";
+            
+            System.out.println(sql);
+            
+            stmt.executeUpdate(sql);
+            
+            /*
+            Cuando se cree un nuevo campo, va a saltar errores en la conexión ya que viene a ser
+            una nueva tabla vacía. Así que hay que llenarlas de campos vacíos
+            */
+            llenarCamposVacios(nombre);
+            
+            return true;
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+   
+    private void llenarCamposVacios(String nombre){
+        String sql = "INSERT INTO " + nombre 
+                    + "(idProducto, titulo, campo) VALUES(?, ?, ?)";
+        for(int i = 0; i < this.listaIdsProductos.size(); i++){
+            int id = this.listaIdsProductos.get(i);
+            System.out.println(id);
+        }
     }
     
     //Cerrar la conexión
