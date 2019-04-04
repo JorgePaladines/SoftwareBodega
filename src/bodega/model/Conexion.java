@@ -6,6 +6,7 @@
 package bodega.model;
 import java.sql.*;
 import java.util.LinkedList;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -191,7 +192,7 @@ public class Conexion {
                     "date_updated timestamp default current_timestamp on update current_timestamp, " +
                     "foreign key(idProducto) references productos(idProducto))";
             
-            System.out.println(sql);
+            //System.out.println(sql);
             
             stmt.executeUpdate(sql);
             
@@ -200,7 +201,7 @@ public class Conexion {
             una nueva tabla vacía. Así que hay que llenarlas de campos vacíos
             */
             llenarCamposVacios(nombre);
-            
+
             return true;
         }
         catch(SQLException e){
@@ -209,12 +210,38 @@ public class Conexion {
         }
     }
    
-    private void llenarCamposVacios(String nombre){
+    //Funcion que se encarga de llenar todos los registros de una nueva tabla para que no se caiga el programa
+    private void llenarCamposVacios(String nombre) throws SQLException{
         String sql = "INSERT INTO " + nombre 
                     + "(idProducto, titulo, campo) VALUES(?, ?, ?)";
+        PreparedStatement stmt;
         for(int i = 0; i < this.listaIdsProductos.size(); i++){
             int id = this.listaIdsProductos.get(i);
-            System.out.println(id);
+            //System.out.println(id);
+            stmt = this.conn.prepareStatement(sql);
+            stmt.setInt(1,id);
+            String Nombre = nombre.substring(0, 1).toUpperCase() + nombre.substring(1);
+            stmt.setString(2,Nombre);
+            stmt.setString(3,"");
+
+            //System.out.println(stmt.toString());
+
+            stmt.executeUpdate();
+        }
+    }
+    
+    public boolean eliminarCampo(String nombre){
+        Statement stmt = null;
+        try{
+            stmt = this.conn.createStatement();
+            String sql = "DROP TABLE " + nombre;
+            //System.out.println(sql);
+            stmt.executeUpdate(sql);
+            return true;
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            return false;
         }
     }
     
