@@ -77,5 +77,9 @@ public class InicioController implements Initializable {
 
     @FXML
     private void retirarProd(ActionEvent event) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("EliminarProducto.fxml"));
+        Stage stage = (Stage) insertarProducto.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
     }
 }

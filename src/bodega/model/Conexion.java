@@ -97,12 +97,29 @@ public class Conexion {
             }
             //System.out.println(select);
             rs = stmnt.executeQuery(select);
-
         }
         catch(SQLException e){
             System.err.println(e);
         }
         
+        return rs;
+    }
+    
+    /*
+    Muestra sólo el nombre del producto (Descripción)
+    Esta función es para eliminar productos por nombre en la ventana correspodiente
+    */
+    public ResultSet mostrarNombresDeProductos(){
+        ResultSet rs = null;
+        try{
+            Statement stmnt = (Statement) this.conn.createStatement();
+            String select = "SELECT * FROM productos p LEFT JOIN descripcion on p.idProducto = descripcion.idProducto";
+            rs = stmnt.executeQuery(select);
+            //System.out.println(rs);
+        }
+        catch(SQLException e){
+            System.err.println(e);
+        }
         return rs;
     }
     
@@ -200,7 +217,7 @@ public class Conexion {
             Cuando se cree un nuevo campo, va a saltar errores en la conexión ya que viene a ser
             una nueva tabla vacía. Así que hay que llenarlas de campos vacíos
             */
-            llenarCamposVacios(nombre);
+            llenarCamposVacios(nombre,tipo);
 
             return true;
         }
@@ -211,7 +228,7 @@ public class Conexion {
     }
    
     //Funcion que se encarga de llenar todos los registros de una nueva tabla para que no se caiga el programa
-    private void llenarCamposVacios(String nombre) throws SQLException{
+    private void llenarCamposVacios(String nombre, String tipo) throws SQLException{
         String sql = "INSERT INTO " + nombre 
                     + "(idProducto, titulo, campo) VALUES(?, ?, ?)";
         PreparedStatement stmt;
@@ -222,7 +239,12 @@ public class Conexion {
             stmt.setInt(1,id);
             String Nombre = nombre.substring(0, 1).toUpperCase() + nombre.substring(1);
             stmt.setString(2,Nombre);
-            stmt.setString(3,"");
+            if(tipo.equalsIgnoreCase("String"))
+                stmt.setString(3,"");
+            else if(tipo.equalsIgnoreCase("Float"))
+                stmt.setFloat(3,0.f);
+            else
+                stmt.setInt(3, 0);
 
             //System.out.println(stmt.toString());
 

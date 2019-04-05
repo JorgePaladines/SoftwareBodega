@@ -93,7 +93,7 @@ public class CargarDatosVentanaController implements Initializable {
             /*Esto sólo hace que se llene el Observable List con los productos
             Va a hacer falta que se muestren los campos correctos
             
-            Eso lo hace la función mostrarDatos()*/
+            Eso lo hace la función cargarDatos()*/
             while(rs.next()){
                 Producto p = new Producto(rs,this.numColumnas);
                 this.datos.add(p);

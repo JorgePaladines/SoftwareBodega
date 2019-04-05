@@ -24,6 +24,6 @@
             <Button fx:id="bCambiar" mnemonicParsing="false" onAction="#submit" text="Cambiar" />
          </children>
       </VBox>
-      <Button fx:id="backButton" layoutX="39.0" layoutY="6.0" mnemonicParsing="false" onAction="#back" text="&lt;" />
+      <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" text="&lt;" />
    </children>
 </AnchorPane>

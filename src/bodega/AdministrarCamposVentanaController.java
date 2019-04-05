@@ -80,6 +80,8 @@ public class AdministrarCamposVentanaController implements Initializable {
         nombresCampos.setAll(this.conexion.obtenerCamposNombres());
         nombresCampos.remove(nombresCampos.size()-1); //Se le resta 1 puesto que la lista arrojada contiene
         //la palabra "productos", lo que no es un campo a eliminar
+        nombresCampos.remove("descripcion");//También se saca la dexcripción ya que este es el título del producto
+        //Si se elimina, no se podrá identificar los productos al momento de eliminarlos
         this.choiceCampo.setItems(nombresCampos);
     }
 
