@@ -24,13 +24,17 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import bodega.model.Conexion;
 import bodega.model.Producto;
+import java.io.File;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 
 /**
  * FXML Controller class
@@ -56,6 +60,12 @@ public class EditarProductoController implements Initializable {
     private VBox contenedor;
     
     private Conexion conexion;
+    @FXML
+    private ImageView imagen;
+    @FXML
+    private Button botonImagen;
+    @FXML
+    private AnchorPane root;
 
     /**
      * Initializes the controller class.
@@ -148,6 +158,13 @@ public class EditarProductoController implements Initializable {
         Stage stage = (Stage) backButton.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
+    }
+
+    @FXML
+    private void cambiarImagen(ActionEvent event) {
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Open File");
+        chooser.showOpenDialog(root.getScene().getWindow());
     }
     
 }

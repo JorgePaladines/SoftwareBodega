@@ -3,11 +3,13 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="674.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bodega.EditarProductoController">
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="400.0" prefWidth="674.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bodega.EditarProductoController">
    <children>
       <VBox alignment="TOP_CENTER" layoutX="244.0" layoutY="8.0" prefHeight="383.0" prefWidth="258.0" spacing="10.0" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="244.0" AnchorPane.rightAnchor="230.0" AnchorPane.topAnchor="8.0">
          <children>
@@ -25,5 +27,11 @@
          </children>
       </VBox>
       <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" text="&lt;" />
+      <ImageView fx:id="imagen" fitHeight="150.0" fitWidth="200.0" layoutX="27.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true" visible="false" AnchorPane.bottomAnchor="210.6666717529297" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="447.0" AnchorPane.topAnchor="56.0">
+         <image>
+            <Image url="@../imagenes/placeholder-360x240.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="botonImagen" layoutX="75.0" layoutY="200.0" mnemonicParsing="false" onAction="#cambiarImagen" text="Cambiar Imagen" visible="false" />
    </children>
 </AnchorPane>

@@ -12,7 +12,7 @@
             <VBox alignment="TOP_CENTER" layoutX="245.0" layoutY="128.0" prefHeight="120.0" prefWidth="184.0" spacing="10.0">
                <children>
                     <Button fx:id="verInventario" onAction="#handleButtonAction" text="Ver Inventario" />
-                  <Button fx:id="insertarProducto" mnemonicParsing="false" onAction="#insertarNuevo" text="Administrar Producto" />
+                  <Button fx:id="insertarProducto" mnemonicParsing="false" onAction="#insertarNuevo" text="Agregar Producto" />
                   <Button fx:id="administrarCampos" mnemonicParsing="false" onAction="#adminisCampos" text="Administrar Campos" />
                   <Button fx:id="retirarProducto" mnemonicParsing="false" onAction="#retirarProd" text="Eliminar del Inventario" />
                </children>

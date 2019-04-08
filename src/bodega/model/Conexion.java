@@ -267,6 +267,23 @@ public class Conexion {
         }
     }
     
+    public boolean eliminarProducto(int idProducto){
+        Statement stmt = null;
+        try{
+            stmt = this.conn.createStatement();
+            for(int i = 0; i < this.listaNombresCampos.size(); i++){
+                String tabla = this.listaNombresCampos.get(i);
+                String sql = "DELETE FROM " + tabla + " where idProducto = " + idProducto;
+                stmt.executeUpdate(sql);
+            }
+            return true;
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
     //Cerrar la conexión
     public void close() throws SQLException{
         this.conn.close();

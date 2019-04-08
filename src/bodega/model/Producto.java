@@ -20,6 +20,8 @@ public class Producto {
     private String date_created;
     private String date_updated;
     
+    private String imagenLink;
+    
     /*Lista que contiene todas las columnas de la tabla del inventario
     Un campo es "Descripción", otro es "Modelo", etc
     
