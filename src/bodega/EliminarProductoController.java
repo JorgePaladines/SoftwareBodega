@@ -115,10 +115,11 @@ public class EliminarProductoController implements Initializable {
                 int idProducto = p.getIdProducto();
                 //System.out.println(idProducto);
                 boolean exitoso = this.conn.eliminarProducto(idProducto);
+                
+                Alert al = new Alert(Alert.AlertType.INFORMATION);
                 if(exitoso){
                     //Lanzar la alerta
                     System.out.println("Eliminación de producto exitosa");
-                    Alert al = new Alert(Alert.AlertType.INFORMATION);
                     al.setTitle("");
                     al.setHeaderText("SE HA ELIMINADO EL PRODUCTO");
                     al.setContentText("El producto se ha eliminado exitosamente");
@@ -130,7 +131,6 @@ public class EliminarProductoController implements Initializable {
                 else{
                     //Lanzar alerta
                     System.out.println("Eliminación de producto fallida");
-                    Alert al = new Alert(Alert.AlertType.INFORMATION);
                     al.setTitle("");
                     al.setHeaderText("NO SE HA PODIDO ELIMINAR EL PRODUCTO");
                     al.setContentText("Hubo una falla en la eliminación del producto");

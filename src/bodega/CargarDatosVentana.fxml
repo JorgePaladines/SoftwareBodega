@@ -19,7 +19,7 @@
                   </AnchorPane>
                   <AnchorPane prefHeight="15.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="callButton" layoutX="57.0" layoutY="6.0" mnemonicParsing="false" onAction="#cargarDatos" text="Cargar Datos" />
+                        <Button fx:id="callButton" layoutX="66.0" layoutY="6.0" mnemonicParsing="false" onAction="#cargarDatos" text="Actualizar" />
                      </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="37.0" prefWidth="200.0" />

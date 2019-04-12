@@ -140,8 +140,6 @@ public class EditarProductoController implements Initializable {
             alert.setContentText("No se ha podido actualizar el producto en la base de datos");
             alert.showAndWait();
         }
-        
-        
     }
 
     @FXML

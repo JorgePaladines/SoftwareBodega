@@ -41,9 +41,24 @@ public class Conexion {
             Statement stmnt = (Statement) this.conn.createStatement();
             String sql = "SHOW tables";
             ResultSet rs = stmnt.executeQuery(sql);
+            
+            //La variable campoProducto es usada para colocar la tabla de "producto" al final de la lista
+            String campoProducto = "";
+            //La variable campoDescripcion es usada para colocar la tabla de "descripcion" al inicio de la lista
+            String campoDescripcion = "";
             while(rs.next()){
-                this.listaNombresCampos.add(rs.getString(1));
+                if(!rs.getString(1).equalsIgnoreCase("productos") && !rs.getString(1).equalsIgnoreCase("descripcion")){
+                    this.listaNombresCampos.add(rs.getString(1));
+                }
+                else if(rs.getString(1).equalsIgnoreCase("productos")){
+                    campoProducto = rs.getString(1);
+                }
+                else{
+                    campoDescripcion = rs.getString(1);
+                }
             }
+            this.listaNombresCampos.addFirst(campoDescripcion);
+            this.listaNombresCampos.addLast(campoProducto);
             
             //Llenar la lista de los Tipos de los Campos
             sql = "SELECT * FROM ";
@@ -60,7 +75,6 @@ public class Conexion {
             rs = stmnt.executeQuery(sql);
             while(rs.next())
                 this.listaIdsProductos.add(Integer.parseInt(rs.getString(1)));
-
         }
         catch(SQLException e){
             System.out.println("ERROR - NO SE PUDO CONECTAR");
@@ -95,13 +109,11 @@ public class Conexion {
                 select += " LEFT JOIN "+this.listaNombresCampos.get(i)
                         + " on p.idProducto = "+this.listaNombresCampos.get(i)+".idProducto";
             }
-            //System.out.println(select);
             rs = stmnt.executeQuery(select);
         }
         catch(SQLException e){
             System.err.println(e);
-        }
-        
+        }  
         return rs;
     }
     

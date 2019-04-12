@@ -164,6 +164,8 @@ public class AdministrarCamposVentanaController implements Initializable {
                     if(type == yesButton){
                         //Ahora sí llamar a la función que lo elimina
                         boolean exitoso = this.conexion.eliminarCampo(nombre);
+                        
+                        Alert al = new Alert(Alert.AlertType.INFORMATION);
                         if(exitoso){
                             //Si todo sale bien, también hay que sacar el nombre del campo de la lista
                             this.choiceCampo.getItems().remove(this.choiceCampo.getItems().indexOf(nombre));
@@ -171,18 +173,19 @@ public class AdministrarCamposVentanaController implements Initializable {
                             
                             //Lanzar la alerta
                             System.out.println("Eliminación de campo exitosa");
-                            alert.setTitle("");
-                            alert.setHeaderText("SE HA ELIMINADO EL CAMPO");
-                            alert.setContentText("El campo se ha eliminado exitosamente");
-                            alert.showAndWait();
+                            
+                            al.setTitle("");
+                            al.setHeaderText("SE HA ELIMINADO EL CAMPO");
+                            al.setContentText("El campo se ha eliminado exitosamente");
+                            al.showAndWait();
                         }
                         else{
                             //Lanzar alerta
                             System.out.println("Eliminación de campo fallida");
-                            alert.setTitle("");
-                            alert.setHeaderText("NO SE HA PODIDO ELIMINAR EL CAMPO");
-                            alert.setContentText("Hubo una falla en la eliminación del campo");
-                            alert.showAndWait();
+                            al.setTitle("");
+                            al.setHeaderText("NO SE HA PODIDO ELIMINAR EL CAMPO");
+                            al.setContentText("Hubo una falla en la eliminación del campo");
+                            al.showAndWait();
                         }
                     }
                     else{

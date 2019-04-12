@@ -73,11 +73,27 @@ public class CargarDatosVentanaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         //Hacer la conexión
         this.conexion = new Conexion();
-   
+        
+        //Apenas se cargue la ventana, se muestran los datos
+        this.cargarDatosSinClic();
+        
+        //Función para que se pueda hacer doble clic sobre cada columna y editar el producto
+        this.dobleClicEditar(); 
+    }
+    
+    private void llenarLista(){
+        //Crear la lista visible, vacía al inicio
+        if(this.datos != null){
+            this.datos.clear();
+        }
+        
+        //Borrar el contenido de la tabla
+        this.datosTabla.getColumns().clear();
+        this.datosTabla.getItems().clear();
+        
         //Llamar al método que retorna todo el set de productos
         ResultSet rs = this.conexion.mostrarDatos();
 
-        //Crear la lista visible, vacía al inicio
         this.datos = FXCollections.observableArrayList();
         
         //Ahora contar el número de columnas
@@ -102,18 +118,6 @@ public class CargarDatosVentanaController implements Initializable {
         catch(SQLException e){
             System.err.println(e);
         }
-        
-        //Función para que se pueda hacer doble clic sobre cada columna y editar el producto
-        this.dobleClicEditar();
-        
-        try{
-            this.conexion.close();
-        }
-        catch(SQLException e){
-            System.err.println(e);
-            System.out.println("ERROR AL CERRAR LA CONEXIÓN");
-        }
-            
     }
     
     //Función para que se pueda hacer doble clic sobre cada columna y editar el producto
@@ -151,10 +155,10 @@ public class CargarDatosVentanaController implements Initializable {
             return row ;
         });
     }
-
-    //Cuando se hace clic en el botón "Cargar Datos", se colocan los items en la tabla
-    @FXML
-    private void cargarDatos(ActionEvent event) {
+    
+    private void cargarDatosSinClic(){
+        //Primero se llena la lista observabe que contiene los campos
+        this.llenarLista();
         
         int contar = 0;//Esto será para que no se agreguen más columnas de las que deben ser
         
@@ -183,6 +187,12 @@ public class CargarDatosVentanaController implements Initializable {
             }
         }
         datosTabla.setItems(datos);
+    }
+
+    //Cuando se hace clic en el botón "Cargar Datos", se colocan los items en la tabla
+    @FXML
+    private void cargarDatos(ActionEvent event) {
+        this.cargarDatosSinClic();
     }
 
     //Botón para regresar
