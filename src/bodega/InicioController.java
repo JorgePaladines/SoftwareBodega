@@ -42,15 +42,14 @@ public class InicioController implements Initializable {
     private Button retirarProducto;
     @FXML
     private Button administrarCampos;
+    @FXML
+    private Button logOut;
     
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("CargarDatosVentana.fxml"));
-        
         Stage stage = (Stage) verInventario.getScene().getWindow();
-        
         Scene scene = new Scene(root);
-        
         stage.setScene(scene);
     }
     
@@ -64,13 +63,12 @@ public class InicioController implements Initializable {
         Stage stage = (Stage) insertarProducto.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
-
     }
     
     @FXML
     private void adminisCampos(ActionEvent event) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("AdministrarCamposVentana.fxml"));
-        Stage stage = (Stage) insertarProducto.getScene().getWindow();
+        Stage stage = (Stage) administrarCampos.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
     }
@@ -78,6 +76,14 @@ public class InicioController implements Initializable {
     @FXML
     private void retirarProd(ActionEvent event) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("EliminarProducto.fxml"));
+        Stage stage = (Stage) retirarProducto.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+    }
+
+    @FXML
+    private void logOutButton(ActionEvent event) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("LoginVentana.fxml"));
         Stage stage = (Stage) insertarProducto.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

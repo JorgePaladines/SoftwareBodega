@@ -17,6 +17,7 @@
                   <Button fx:id="retirarProducto" mnemonicParsing="false" onAction="#retirarProd" text="Eliminar del Inventario" />
                </children>
             </VBox>
+            <Button fx:id="logOut" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#logOutButton" text="Logout" />
          </children></AnchorPane>
    </center>
 </BorderPane>

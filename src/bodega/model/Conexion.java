@@ -17,8 +17,8 @@ import javafx.scene.layout.VBox;
  */
 public class Conexion {
     
-    private String USERNAME="root";
-    private String PASSWORD="mysqlseguiresapass";
+    private String USERNAME="JorgePaladines";
+    private String PASSWORD="shihage1";
     private String CONN_STRING="jdbc:mysql://10.0.10.50:3306/seguistore";
     
     private Connection conn;
@@ -36,6 +36,8 @@ public class Conexion {
             System.out.println("Connected!");
             
             this.conn = conn;
+            
+            this.conn.setSchema(this.dbName);
             
             //Llenar la lista de los nombres de los campos
             Statement stmnt = (Statement) this.conn.createStatement();
@@ -295,7 +297,27 @@ public class Conexion {
             return false;
         }
     }
-    
+
+    public Connection getConn() {
+        return conn;
+    }
+
+    public String getUSERNAME() {
+        return USERNAME;
+    }
+
+    public String getPASSWORD() {
+        return PASSWORD;
+    }
+
+    public String getCONN_STRING() {
+        return CONN_STRING;
+    }
+
+    public String getDbName() {
+        return dbName;
+    }
+
     //Cerrar la conexión
     public void close() throws SQLException{
         this.conn.close();
