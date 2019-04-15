@@ -71,14 +71,19 @@ public class CargarDatosVentanaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //Hacer la conexión
-        this.conexion = new Conexion();
-        
         //Apenas se cargue la ventana, se muestran los datos
         this.cargarDatosSinClic();
         
         //Función para que se pueda hacer doble clic sobre cada columna y editar el producto
         this.dobleClicEditar(); 
+        
+        //Tratar de cerrar la conexión
+        try{
+         this.conexion.close();   
+        }
+        catch(SQLException e){
+            System.err.println(e);
+        }
     }
     
     private void llenarLista(){
@@ -157,6 +162,9 @@ public class CargarDatosVentanaController implements Initializable {
     }
     
     private void cargarDatosSinClic(){
+        //Hacer la conexión
+        this.conexion = new Conexion();
+        
         //Primero se llena la lista observabe que contiene los campos
         this.llenarLista();
         
@@ -198,12 +206,12 @@ public class CargarDatosVentanaController implements Initializable {
     //Botón para regresar
     @FXML
     private void back(ActionEvent event) throws IOException{
-        try{
+        /*try{
          this.conexion.close();   
         }
         catch(SQLException e){
             System.err.println(e);
-        }
+        }*/
         
         Parent root = FXMLLoader.load(getClass().getResource("Inicio.fxml"));
         Stage stage = (Stage) backButton.getScene().getWindow();
