@@ -1,37 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="674.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="bodega.LoginVentanaController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="674.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bodega.LoginVentanaController">
    <children>
-      <Label fx:id="lLogin" layoutX="291.0" layoutY="45.0" text="LOGIN" textAlignment="CENTER">
-         <font>
-            <Font name="Berlin Sans FB Demi Bold" size="30.0" />
-         </font>
-      </Label>
-      <Label fx:id="lUsuario" layoutX="303.0" layoutY="117.0" text="Usuario">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="lContrasena" layoutX="287.0" layoutY="230.0" text="Contraseña">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <TextField layoutX="213.0" layoutY="147.0">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </TextField>
-      <TextField layoutX="213.0" layoutY="260.0">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </TextField>
+      <VBox alignment="TOP_CENTER" layoutX="213.0" layoutY="45.0" nodeOrientation="LEFT_TO_RIGHT" prefWidth="249.0" spacing="30.0">
+         <children>
+            <Label fx:id="lLogin" text="LOGIN" textAlignment="CENTER">
+               <font>
+                  <Font name="Berlin Sans FB Demi Bold" size="30.0" />
+               </font>
+            </Label>
+            <VBox alignment="TOP_CENTER">
+               <children>
+                  <Label fx:id="lUsuario" text="Usuario">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tUser">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER">
+               <children>
+                  <Label fx:id="lContrasena" text="Contraseña">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tPass">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </VBox>
+            <Button fx:id="bIngresar" mnemonicParsing="false" onAction="#login" text="Ingresar" />
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
