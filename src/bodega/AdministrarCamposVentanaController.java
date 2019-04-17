@@ -7,6 +7,7 @@ package bodega;
  */
 
 import bodega.model.Conexion;
+import bodega.model.Usuario;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -61,6 +62,8 @@ public class AdministrarCamposVentanaController implements Initializable {
     private Button bEliminar;
     @FXML
     private ChoiceBox<String> choiceCampo;
+    
+    private Usuario usuario;
 
     
     /**
@@ -68,7 +71,27 @@ public class AdministrarCamposVentanaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.conexion = new Conexion();
+        /*this.conexion = new Conexion(this.usuario);
+        //Se llenan los choiceboxes
+        //Primero la lista de tipos de campos: String, Integer o Float
+        ObservableList<String> tiposDeCampos = FXCollections.observableArrayList();
+        tiposDeCampos.addAll("String","Integer","Float");
+        this.choiceTipo.setItems(tiposDeCampos);
+        
+        //Luego la lista de campos existentes. Estos pueden ser seleccionados para ser eliminados
+        ObservableList<String> nombresCampos = FXCollections.observableArrayList();
+        nombresCampos.setAll(this.conexion.obtenerCamposNombres());
+        nombresCampos.remove(nombresCampos.size()-1); //Se le resta 1 puesto que la lista arrojada contiene
+        //la palabra "productos", lo que no es un campo a eliminar
+        nombresCampos.remove("descripcion");//También se saca la dexcripción ya que este es el título del producto
+        //Si se elimina, no se podrá identificar los productos al momento de eliminarlos
+        this.choiceCampo.setItems(nombresCampos);*/
+    }
+    
+    public void initData(Usuario usuario){
+        this.usuario = usuario;
+        
+        this.conexion = new Conexion(this.usuario);
         //Se llenan los choiceboxes
         //Primero la lista de tipos de campos: String, Integer o Float
         ObservableList<String> tiposDeCampos = FXCollections.observableArrayList();
@@ -90,10 +113,13 @@ public class AdministrarCamposVentanaController implements Initializable {
         try{this.conexion.close();}
         catch(SQLException e){System.err.println(e);}
         
-        Parent root = FXMLLoader.load(getClass().getResource("Inicio.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Inicio.fxml"));
         Stage stage = (Stage) backButton.getScene().getWindow();
-        Scene scene = new Scene(root);
+        Scene scene = new Scene( (Parent) loader.load());
         stage.setScene(scene);
+        
+        InicioController controller = loader.<InicioController>getController();
+        controller.setUser(usuario);
     }
 
     @FXML

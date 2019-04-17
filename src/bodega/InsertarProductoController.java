@@ -29,6 +29,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import bodega.model.Conexion;
 import bodega.model.Producto;
+import bodega.model.Usuario;
 import java.sql.ResultSetMetaData;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Spinner;
@@ -66,12 +67,29 @@ public class InsertarProductoController implements Initializable {
     @FXML
     private ScrollPane scrollPane;
 
+    private Usuario usuario;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.conexion = new Conexion();
+        /*this.conexion = new Conexion(this.usuario);
+        ResultSet rs = this.conexion.mostrarDatos();
+        this.datos = FXCollections.observableArrayList();
+        
+        //Llenar el combobox
+        this.llenarComboBox(rs);
+        this.comboBox.setItems(this.datos);
+        
+        //Llenar el ScrollPane
+        this.llenarScrollPane();*/
+    }
+    
+    public void initData(Usuario usuario){
+        this.usuario = usuario;
+        
+        this.conexion = new Conexion(this.usuario);
         ResultSet rs = this.conexion.mostrarDatos();
         this.datos = FXCollections.observableArrayList();
         
@@ -168,10 +186,13 @@ public class InsertarProductoController implements Initializable {
             System.err.println(e);
         }
         
-        Parent root = FXMLLoader.load(getClass().getResource("Inicio.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Inicio.fxml"));
         Stage stage = (Stage) backButton.getScene().getWindow();
-        Scene scene = new Scene(root);
+        Scene scene = new Scene( (Parent) loader.load());
         stage.setScene(scene);
+        
+        InicioController controller = loader.<InicioController>getController();
+        controller.setUser(usuario);
     }
 
     @FXML

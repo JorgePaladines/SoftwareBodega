@@ -36,6 +36,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import bodega.model.Conexion;
 import bodega.model.Producto;
+import bodega.model.Usuario;
 import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,12 +66,34 @@ public class CargarDatosVentanaController implements Initializable {
     Como debe poder agregarse campos al producto, deben primero contarse cuántos campos hay para que
     se puedan mostrar como columnas en la interfaz*/
     private int numColumnas;
+    
+    private Usuario usuario;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        /*
+        //Apenas se cargue la ventana, se muestran los datos
+        this.cargarDatosSinClic();
+        
+        //Función para que se pueda hacer doble clic sobre cada columna y editar el producto
+        this.dobleClicEditar(); 
+        
+        //Tratar de cerrar la conexión
+        try{
+         this.conexion.close();   
+        }
+        catch(SQLException e){
+            System.err.println(e);
+        }
+        */
+    }
+    
+    public void initData(Usuario usuario){
+        this.usuario = usuario;
+        
         //Apenas se cargue la ventana, se muestran los datos
         this.cargarDatosSinClic();
         
@@ -148,7 +171,7 @@ public class CargarDatosVentanaController implements Initializable {
                         
                         //Pasar el parámetro de esta manera
                         EditarProductoController controller = loader.<EditarProductoController>getController();
-                        controller.initData(producto);
+                        controller.initData(this.usuario, producto);
                         
                     }
                     catch(IOException e){
@@ -163,7 +186,7 @@ public class CargarDatosVentanaController implements Initializable {
     
     private void cargarDatosSinClic(){
         //Hacer la conexión
-        this.conexion = new Conexion();
+        this.conexion = new Conexion(this.usuario);
         
         //Primero se llena la lista observabe que contiene los campos
         this.llenarLista();
@@ -212,11 +235,14 @@ public class CargarDatosVentanaController implements Initializable {
         catch(SQLException e){
             System.err.println(e);
         }*/
-        
-        Parent root = FXMLLoader.load(getClass().getResource("Inicio.fxml"));
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Inicio.fxml"));
         Stage stage = (Stage) backButton.getScene().getWindow();
-        Scene scene = new Scene(root);
+        Scene scene = new Scene( (Parent) loader.load());
         stage.setScene(scene);
+        
+        InicioController controller = loader.<InicioController>getController();
+        controller.setUser(usuario);
     }
     
 }

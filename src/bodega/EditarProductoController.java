@@ -24,6 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import bodega.model.Conexion;
 import bodega.model.Producto;
+import bodega.model.Usuario;
 import java.io.File;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
@@ -66,17 +67,21 @@ public class EditarProductoController implements Initializable {
     private Button botonImagen;
     @FXML
     private AnchorPane root;
+    
+    private Usuario usuario;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.conexion = new Conexion();
     }
     
     //Aquí recibe el parámetro del producto que va a ser editado
-    public void initData(Producto p){
+    public void initData(Usuario usuario, Producto p){
+        this.usuario = usuario;
+        this.conexion = new Conexion(usuario);
+        
         this.producto = p;
         
         //Aquí se va a llenar el ScrollPane
@@ -152,10 +157,14 @@ public class EditarProductoController implements Initializable {
             System.err.println(e);
             System.out.println("ERROR AL CERRAR LA CONEXIÓN");
         }
-        Parent root = FXMLLoader.load(getClass().getResource("CargarDatosVentana.fxml"));
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("CargarDatosVentana.fxml"));
         Stage stage = (Stage) backButton.getScene().getWindow();
-        Scene scene = new Scene(root);
+        Scene scene = new Scene( (Parent) loader.load());
         stage.setScene(scene);
+        
+        CargarDatosVentanaController controller = loader.<CargarDatosVentanaController>getController();
+        controller.initData(usuario);
     }
 
     @FXML

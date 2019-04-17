@@ -17,8 +17,8 @@ import javafx.scene.layout.VBox;
  */
 public class Conexion {
     
-    private String USERNAME="JorgePaladines";
-    private String PASSWORD="shihage1";
+    private String USERNAME;
+    private String PASSWORD;
     private String CONN_STRING="jdbc:mysql://10.0.10.50:3306/seguistore";
     
     private Connection conn;
@@ -29,7 +29,10 @@ public class Conexion {
     private LinkedList<String> listaTiposDeCampos =  new LinkedList<String>();
     private LinkedList<Integer> listaIdsProductos =  new LinkedList<Integer>();
     
-    public Conexion(){
+    public Conexion(Usuario usuario){
+        this.USERNAME = usuario.getUsername();
+        this.PASSWORD = usuario.getPassword();
+        
         Connection conn = null;
         try{
             conn = DriverManager.getConnection(CONN_STRING,USERNAME,PASSWORD);

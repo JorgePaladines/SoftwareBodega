@@ -5,6 +5,7 @@
  */
 package bodega;
 
+import bodega.model.Usuario;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -45,40 +46,66 @@ public class InicioController implements Initializable {
     @FXML
     private Button logOut;
     
+    private Usuario usuario;
+
+    
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("CargarDatosVentana.fxml"));
+        Stage stage = (Stage) verInventario.getScene().getWindow();
+        Scene scene = new Scene( (Parent) loader.load());
+        stage.setScene(scene);
+        
+        CargarDatosVentanaController controller = loader.<CargarDatosVentanaController>getController();
+        controller.initData(this.usuario);
+
+        /*
         Parent root = FXMLLoader.load(getClass().getResource("CargarDatosVentana.fxml"));
         Stage stage = (Stage) verInventario.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        */
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
+    
+    public void setUser(Usuario usuario){
+        this.usuario = usuario;
+    }
 
     @FXML
     private void insertarNuevo(ActionEvent event) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("InsertarProducto.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("InsertarProducto.fxml"));
         Stage stage = (Stage) insertarProducto.getScene().getWindow();
-        Scene scene = new Scene(root);
+        Scene scene = new Scene( (Parent) loader.load());
         stage.setScene(scene);
+        
+        InsertarProductoController controller = loader.<InsertarProductoController>getController();
+        controller.initData(this.usuario);
     }
     
     @FXML
     private void adminisCampos(ActionEvent event) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("AdministrarCamposVentana.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AdministrarCamposVentana.fxml"));
         Stage stage = (Stage) administrarCampos.getScene().getWindow();
-        Scene scene = new Scene(root);
+        Scene scene = new Scene( (Parent) loader.load());
         stage.setScene(scene);
+        
+        AdministrarCamposVentanaController controller = loader.<AdministrarCamposVentanaController>getController();
+        controller.initData(this.usuario);
     }
 
     @FXML
     private void retirarProd(ActionEvent event) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("EliminarProducto.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("EliminarProducto.fxml"));
         Stage stage = (Stage) retirarProducto.getScene().getWindow();
-        Scene scene = new Scene(root);
+        Scene scene = new Scene( (Parent) loader.load());
         stage.setScene(scene);
+        
+        EliminarProductoController controller = loader.<EliminarProductoController>getController();
+        controller.initData(this.usuario);
     }
 
     @FXML

@@ -7,6 +7,7 @@ package bodega;
 
 import bodega.model.Conexion;
 import bodega.model.Producto;
+import bodega.model.Usuario;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -49,13 +50,43 @@ public class EliminarProductoController implements Initializable {
         
     private Conexion conn;
     private LinkedList<Producto> productos;
+    
+    private Usuario usuario;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.conn = new Conexion();
+        /*this.conn = new Conexion(this.usuario);
+        
+        ResultSet rs = this.conn.mostrarNombresDeProductos();
+        //Lista de productos
+        this.productos = new LinkedList<Producto>();
+        //Lista visual de los nombres
+        ObservableList<String> nombres = FXCollections.observableArrayList();
+        int numeroDeColumnas = 7; //Son 7 columnas en cada Tabla de Campo
+        try{
+            while(rs.next()){
+                Producto p = new Producto(rs,numeroDeColumnas);
+                this.productos.add(p);
+                nombres.add((String)p.getListaCampos().getListaCampos().getFirst().getCampo());
+                //System.out.println(p.getListaCampos().getListaCampos().getFirst().getIdProducto());
+                //System.out.println(p.getListaCampos().getListaCampos().getFirst().getCampo());
+            }
+        }
+        catch(SQLException e){
+            System.err.println(e);
+        }
+        
+        //Ahora colocar los nombres de los productos en la lista
+        this.listView.setItems(nombres);*/
+    }
+    
+    public void initData(Usuario usuario){
+        this.usuario = usuario;
+        
+        this.conn = new Conexion(this.usuario);
         
         ResultSet rs = this.conn.mostrarNombresDeProductos();
         //Lista de productos
@@ -78,7 +109,7 @@ public class EliminarProductoController implements Initializable {
         
         //Ahora colocar los nombres de los productos en la lista
         this.listView.setItems(nombres);
-    }    
+    }
 
     @FXML
     private void back(ActionEvent event) throws IOException{
@@ -90,10 +121,13 @@ public class EliminarProductoController implements Initializable {
             System.err.println(e);
         }
         
-        Parent root = FXMLLoader.load(getClass().getResource("Inicio.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Inicio.fxml"));
         Stage stage = (Stage) backButton.getScene().getWindow();
-        Scene scene = new Scene(root);
+        Scene scene = new Scene( (Parent) loader.load());
         stage.setScene(scene);
+        
+        InicioController controller = loader.<InicioController>getController();
+        controller.setUser(usuario);
     }
 
     @FXML

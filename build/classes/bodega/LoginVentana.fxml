@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
@@ -37,14 +38,14 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="tPass">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </TextField>
+                  <PasswordField fx:id="tPass" prefHeight="44.0" prefWidth="249.0" />
                </children>
             </VBox>
-            <Button fx:id="bIngresar" mnemonicParsing="false" onAction="#login" text="Ingresar" />
+            <Button fx:id="bIngresar" mnemonicParsing="false" onAction="#login" prefHeight="39.0" prefWidth="122.0" text="INGRESAR">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
          </children>
       </VBox>
    </children>
