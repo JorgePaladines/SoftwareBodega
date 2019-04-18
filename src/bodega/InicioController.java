@@ -73,6 +73,34 @@ public class InicioController implements Initializable {
     
     public void setUser(Usuario usuario){
         this.usuario = usuario;
+        
+        //Permisos
+        
+        //Estos dos son para ver si hay permisos de create o de drop. Si no hay ninguno, no se
+        //habilita el botón de Administrar campos
+        boolean create = false;
+        boolean drop = false;
+        
+        //Se recorre la lista, sólo los 6 primeros elementos, y se habilitan aquellas opciones que sí pueden usarse
+        for(int i = 0; i < 6; i++){
+            if(this.usuario.getPrivilegios()[i].equalsIgnoreCase("INSERT")){
+                this.insertarProducto.setDisable(false);
+            }
+            if(this.usuario.getPrivilegios()[i].equalsIgnoreCase("DELETE")){
+                this.retirarProducto.setDisable(false);
+            }
+            if(this.usuario.getPrivilegios()[i].equalsIgnoreCase("CREATE")){
+                create = true;
+            }
+            if(this.usuario.getPrivilegios()[i].equalsIgnoreCase("DROP")){
+                drop = true;
+            }
+        }
+        
+        //Aquí, si hay permiso de CREATE o de DROP, se habilita el botón.
+        //Ya por dentro es que se ve cuál de ellas se permite
+        if(create || drop)
+            this.administrarCampos.setDisable(false);
     }
 
     @FXML

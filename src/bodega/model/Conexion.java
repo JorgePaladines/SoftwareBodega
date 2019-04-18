@@ -182,7 +182,7 @@ public class Conexion {
                 filasIngresadas = stmt.executeUpdate();
             }
 
-            return filasIngresadas;   
+            return filasIngresadas;
     }
     
     //Actualiza el producto en la base de datos.

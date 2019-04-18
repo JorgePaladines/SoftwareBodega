@@ -150,38 +150,48 @@ public class CargarDatosVentanaController implements Initializable {
     
     //Función para que se pueda hacer doble clic sobre cada columna y editar el producto
     private void dobleClicEditar(){
-        datosTabla.setRowFactory( tv -> {
-            TableRow<Producto> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
-                    //Se guarda el producto que se hizo doble clic
-                    Producto producto = row.getItem();
-                    
-                    //System.out.println(producto.getIdProducto());
-                    try{
-                        //Pasar el producto por parámetro al controlador de EditarProducto
-                        
-                        //Cargar el FXML Loader, como tipo de objecto FXMLLoader
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("EditarProducto.fxml"));
-                        
-                        //Colocar la escena como en los demás casos
-                        Stage stage = (Stage) backButton.getScene().getWindow();
-                        Scene scene = new Scene( (Parent) loader.load());
-                        stage.setScene(scene);
-                        
-                        //Pasar el parámetro de esta manera
-                        EditarProductoController controller = loader.<EditarProductoController>getController();
-                        controller.initData(this.usuario, producto);
-                        
+        //Sólo se puede hacer si el usuario tiene permiso de UPDATE
+        boolean update = false;
+        for(int i = 0; i < 6; i++){
+            if(this.usuario.getPrivilegios()[i].equalsIgnoreCase("UPDATE")){
+                update = true;
+            }
+        }
+        
+        if(update){
+            datosTabla.setRowFactory( tv -> {
+                TableRow<Producto> row = new TableRow<>();
+                row.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                        //Se guarda el producto que se hizo doble clic
+                        Producto producto = row.getItem();
+
+                        //System.out.println(producto.getIdProducto());
+                        try{
+                            //Pasar el producto por parámetro al controlador de EditarProducto
+
+                            //Cargar el FXML Loader, como tipo de objecto FXMLLoader
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("EditarProducto.fxml"));
+
+                            //Colocar la escena como en los demás casos
+                            Stage stage = (Stage) backButton.getScene().getWindow();
+                            Scene scene = new Scene( (Parent) loader.load());
+                            stage.setScene(scene);
+
+                            //Pasar el parámetro de esta manera
+                            EditarProductoController controller = loader.<EditarProductoController>getController();
+                            controller.initData(this.usuario, producto);
+
+                        }
+                        catch(IOException e){
+                            System.out.println("ERROR AL TRATAR DE EDITAR EL PRODUCTO");
+                            System.err.println(e);
+                        }
                     }
-                    catch(IOException e){
-                        System.out.println("ERROR AL TRATAR DE EDITAR EL PRODUCTO");
-                        System.err.println(e);
-                    }
-                }
+                });
+                return row ;
             });
-            return row ;
-        });
+        }
     }
     
     private void cargarDatosSinClic(){
