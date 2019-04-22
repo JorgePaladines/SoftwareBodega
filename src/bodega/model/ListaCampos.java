@@ -42,10 +42,10 @@ public class ListaCampos {
     }
     
     public void llenarLista(int idProducto, int size, ResultSet rs) throws SQLException{
-        if(rs.getString(4) == null){
+        if(rs.getString(5) == null){
             return;
         }
-        for(int i = 4; i <= size; i = i + 7){
+        for(int i = 5; i <= size; i = i + 7){
             //System.out.println(size);
             //System.out.println(i);
             this.listaCampos.add(new Campo(Integer.parseInt(rs.getString(i)),

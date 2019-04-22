@@ -6,13 +6,15 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="674.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bodega.InsertarProductoController">
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="400.0" prefWidth="674.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bodega.InsertarProductoController">
    <children>
       <SplitPane dividerPositions="0.9955357142857143" layoutX="358.0" layoutY="120.0" pickOnBounds="false" prefHeight="400.0" prefWidth="674.0" scaleShape="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -24,12 +26,18 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <ScrollPane fx:id="scrollPane" layoutX="195.0" layoutY="67.0" prefHeight="265.0" prefWidth="274.0" AnchorPane.bottomAnchor="66.0" AnchorPane.leftAnchor="195.0" AnchorPane.rightAnchor="197.0" AnchorPane.topAnchor="67.0">
+                  <ScrollPane fx:id="scrollPane" layoutX="230.0" layoutY="67.0" prefHeight="265.0" prefWidth="207.0" AnchorPane.bottomAnchor="66.0" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="229.0" AnchorPane.topAnchor="67.0">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="263.0" prefWidth="272.0" />
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="263.0" prefWidth="205.0" />
                     </content>
                   </ScrollPane>
                   <Button fx:id="bInsertar" layoutX="299.0" layoutY="359.0" mnemonicParsing="false" onAction="#callInsertar" text="Insertar" />
+                  <ImageView fx:id="imagen" fitHeight="130.0" fitWidth="173.0" layoutX="27.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagenes/placeholder-360x240.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="colocarImagenButton" layoutX="68.0" layoutY="232.0" mnemonicParsing="false" onAction="#colocarImagen" text="Incluir Imagen" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="188.0">

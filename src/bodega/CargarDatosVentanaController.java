@@ -206,10 +206,6 @@ public class CargarDatosVentanaController implements Initializable {
         for(int i = 0; i < this.datos.size(); i++){
             for(int j = 0; j < this.conexion.numeroCampos(); j++){
                 final int finalIdx = j;
-                //this.datos.get(i).setCampo(j);
-                
-                //System.out.println("Titulo: "+this.datos.get(i).getTituloCampo(j));
-                //System.out.println("Campo: "+this.datos.get(i).getCampo(j).getCampo());
                 
                 TableColumn<Producto, Object> tc = new TableColumn<Producto,Object>(this.datos.get(i).getTituloCampo(j));
                 

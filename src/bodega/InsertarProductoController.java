@@ -30,11 +30,21 @@ import javafx.stage.Stage;
 import bodega.model.Conexion;
 import bodega.model.Producto;
 import bodega.model.Usuario;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.ResultSetMetaData;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Spinner;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 
 /**
  * FXML Controller class
@@ -68,6 +78,14 @@ public class InsertarProductoController implements Initializable {
     private ScrollPane scrollPane;
 
     private Usuario usuario;
+    @FXML
+    private ImageView imagen;
+    @FXML
+    private Button colocarImagenButton;
+    @FXML
+    private AnchorPane root;
+    
+    private String imagenLink;
     
     /**
      * Initializes the controller class.
@@ -88,6 +106,7 @@ public class InsertarProductoController implements Initializable {
     
     public void initData(Usuario usuario){
         this.usuario = usuario;
+        this.imagenLink = null;
         
         this.conexion = new Conexion(this.usuario);
         ResultSet rs = this.conexion.mostrarDatos();
@@ -202,7 +221,22 @@ public class InsertarProductoController implements Initializable {
         this.prodNombre.setText(output.split(" ")[0]+":");
         //this.prodCantidad.setText(output.split(" ")[3].split("")[1]+" en stock");
     }
-    
-    
+
+    @FXML
+    private void colocarImagen(ActionEvent event) {
+        FileChooser chooser = new FileChooser();
+        Desktop desktop = Desktop.getDesktop();
+        chooser.setTitle("Open File");
+        File file = chooser.showOpenDialog(root.getScene().getWindow());
+        if(file != null){
+            try {
+                this.imagen.setImage(new Image(new FileInputStream(file)));
+                this.imagenLink = file.toString();
+                System.out.println(this.imagenLink);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(EditarProductoController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
     
 }

@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="674.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="bodega.AdministrarCamposVentanaController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="674.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bodega.AdministrarCamposVentanaController">
    <children>
       <SplitPane fx:id="splitPane" dividerPositions="0.5" layoutX="229.0" layoutY="102.0" prefHeight="400.0" prefWidth="674.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -18,12 +17,12 @@
                <children>
                   <VBox alignment="TOP_CENTER" layoutX="76.0" layoutY="14.0">
                      <children>
-                        <Label prefHeight="27.0" prefWidth="201.0" text="CREAR NUEVO CAMPO" textAlignment="CENTER">
+                        <Label fx:id="labelCREARNUEVOCAMPO" disable="true" prefHeight="27.0" prefWidth="201.0" text="CREAR NUEVO CAMPO" textAlignment="CENTER">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label prefHeight="27.0" prefWidth="169.0" text=" EN EL INVENTARIO" textAlignment="CENTER">
+                        <Label fx:id="labelENELINVENTARIO" disable="true" prefHeight="27.0" prefWidth="169.0" text=" EN EL INVENTARIO" textAlignment="CENTER">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -32,37 +31,37 @@
                   </VBox>
                   <VBox fx:id="tipoChoiceBox" alignment="TOP_CENTER" layoutX="102.0" layoutY="166.0">
                      <children>
-                        <Label fx:id="lTipo" text="Tipo de Dato" />
-                        <ChoiceBox fx:id="choiceTipo" prefWidth="150.0" />
+                        <Label fx:id="lTipo" disable="true" text="Tipo de Dato" />
+                        <ChoiceBox fx:id="choiceTipo" disable="true" prefWidth="150.0" />
                      </children>
                   </VBox>
                   <VBox fx:id="nombreTextBox" alignment="TOP_CENTER" layoutX="102.0" layoutY="97.0">
                      <children>
-                        <Label fx:id="lNombre" text="Nombre" />
-                        <TextField fx:id="tNombre" />
+                        <Label fx:id="lNombre" disable="true" text="Nombre" />
+                        <TextField fx:id="tNombre" disable="true" />
                      </children>
                   </VBox>
-                  <Button fx:id="bCrear" layoutX="155.0" layoutY="288.0" mnemonicParsing="false" onAction="#crearCampo" text="Crear" />
+                  <Button fx:id="bCrear" disable="true" layoutX="155.0" layoutY="288.0" mnemonicParsing="false" onAction="#crearCampo" text="Crear" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <VBox alignment="TOP_CENTER" layoutX="72.0" layoutY="14.0">
                      <children>
-                        <Label text="ELIMINAR UN CAMPO" textAlignment="CENTER">
+                        <Label fx:id="labelELIMINARUNCAMPO" disable="true" text="ELIMINAR UN CAMPO" textAlignment="CENTER">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label text=" DEL INVENTARIO" textAlignment="CENTER">
+                        <Label fx:id="labelDELINVENTARIO" disable="true" text=" DEL INVENTARIO" textAlignment="CENTER">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
                      </children>
                   </VBox>
-                  <Button fx:id="bEliminar" layoutX="138.0" layoutY="140.0" mnemonicParsing="false" onAction="#eliminarCampo" text="Eliminar" />
-                  <ChoiceBox fx:id="choiceCampo" layoutX="93.0" layoutY="99.0" prefWidth="150.0" />
+                  <Button fx:id="bEliminar" disable="true" layoutX="138.0" layoutY="140.0" mnemonicParsing="false" onAction="#eliminarCampo" text="Eliminar" />
+                  <ChoiceBox fx:id="choiceCampo" disable="true" layoutX="93.0" layoutY="99.0" prefWidth="150.0" />
                </children>
             </AnchorPane>
         </items>

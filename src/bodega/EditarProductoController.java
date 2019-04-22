@@ -6,6 +6,7 @@
 package bodega;
 
 import java.io.IOException;
+import java.awt.Desktop;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -26,11 +27,14 @@ import bodega.model.Conexion;
 import bodega.model.Producto;
 import bodega.model.Usuario;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -170,8 +174,17 @@ public class EditarProductoController implements Initializable {
     @FXML
     private void cambiarImagen(ActionEvent event) {
         FileChooser chooser = new FileChooser();
+        Desktop desktop = Desktop.getDesktop();
         chooser.setTitle("Open File");
-        chooser.showOpenDialog(root.getScene().getWindow());
+        File file = chooser.showOpenDialog(root.getScene().getWindow());
+        if(file != null){
+            try {
+                this.imagen.setImage(new Image(new FileInputStream(file)));
+                this.producto.setImagenLink(file.toString());
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(EditarProductoController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     
 }

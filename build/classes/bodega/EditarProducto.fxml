@@ -20,18 +20,18 @@
             </Label>
             <ScrollPane fx:id="scrollPane" prefHeight="308.0" prefWidth="398.0">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="198.0" />
               </content>
             </ScrollPane>
             <Button fx:id="bCambiar" mnemonicParsing="false" onAction="#submit" text="Cambiar" />
          </children>
       </VBox>
       <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" text="&lt;" />
-      <ImageView fx:id="imagen" fitHeight="150.0" fitWidth="200.0" layoutX="27.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true" visible="false" AnchorPane.bottomAnchor="210.6666717529297" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="447.0" AnchorPane.topAnchor="56.0">
+      <ImageView fx:id="imagen" fitHeight="150.0" fitWidth="200.0" layoutX="27.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="210.6666717529297" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="447.0" AnchorPane.topAnchor="56.0">
          <image>
             <Image url="@../imagenes/placeholder-360x240.png" />
          </image>
       </ImageView>
-      <Button fx:id="botonImagen" layoutX="75.0" layoutY="200.0" mnemonicParsing="false" onAction="#cambiarImagen" text="Cambiar Imagen" visible="false" />
+      <Button fx:id="botonImagen" layoutX="75.0" layoutY="229.0" mnemonicParsing="false" onAction="#cambiarImagen" text="Cambiar Imagen" />
    </children>
 </AnchorPane>

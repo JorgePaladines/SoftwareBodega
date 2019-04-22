@@ -37,6 +37,8 @@ public class Producto {
         this.listaCampos = new ListaCampos();
         
         this.listaCampos.llenarLista(idProducto,size,rs);
+        
+        this.imagenLink = rs.getString("imagenLink");
     }
 
     public int getIdProducto() {
@@ -79,5 +81,13 @@ public class Producto {
     //Obtener un titulo específico de la lista de campos
     public String getTituloCampo(int i) {
         return this.listaCampos.getListaCampos().get(i).getTitulo();
+    }
+
+    public String getImagenLink() {
+        return imagenLink;
+    }
+
+    public void setImagenLink(String imagenLink) {
+        this.imagenLink = imagenLink;
     }
 }
