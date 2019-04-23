@@ -5,6 +5,7 @@
  */
 package bodega;
 
+import bodega.model.ColocadorDeImagen;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -31,6 +32,7 @@ import bodega.model.Conexion;
 import bodega.model.Producto;
 import bodega.model.Usuario;
 import java.awt.Desktop;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -45,6 +47,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javax.imageio.ImageIO;
 
 /**
  * FXML Controller class
@@ -86,6 +89,7 @@ public class InsertarProductoController implements Initializable {
     private AnchorPane root;
     
     private String imagenLink;
+    private BufferedImage originalImage;
     
     /**
      * Initializes the controller class.
@@ -161,8 +165,14 @@ public class InsertarProductoController implements Initializable {
         //para insertar el producto
         try{
             if(camposBienColocados){
+                try {
+                    //Se trata de guardar la nueva imagen
+                    ImageIO.write(this.originalImage, "jpg", new File(this.imagenLink));
+                } catch (IOException ex) {
+                    Logger.getLogger(EditarProductoController.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 //Hacer el INSERT del producto
-                int filasIngresadas = this.conexion.insertarProducto((VBox)this.scrollPane.getContent());
+                int filasIngresadas = this.conexion.insertarProducto((VBox)this.scrollPane.getContent(), this.imagenLink);
                 
                 //Si el número de filas es mayor a 0, y en sí, si llega a esta línea, todo salió bien
                 if (filasIngresadas > 0){
@@ -219,24 +229,19 @@ public class InsertarProductoController implements Initializable {
         String output = comboBox.getSelectionModel().getSelectedItem().toString();
         
         this.prodNombre.setText(output.split(" ")[0]+":");
-        //this.prodCantidad.setText(output.split(" ")[3].split("")[1]+" en stock");
     }
 
     @FXML
     private void colocarImagen(ActionEvent event) {
         FileChooser chooser = new FileChooser();
-        Desktop desktop = Desktop.getDesktop();
-        chooser.setTitle("Open File");
-        File file = chooser.showOpenDialog(root.getScene().getWindow());
-        if(file != null){
-            try {
-                this.imagen.setImage(new Image(new FileInputStream(file)));
-                this.imagenLink = file.toString();
-                System.out.println(this.imagenLink);
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(EditarProductoController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        StringBuilder linkViejoBuilder = new StringBuilder();
+        StringBuilder linkNuevoBuilder = new StringBuilder();
+        
+        this.originalImage = ColocadorDeImagen.colocarImagen(chooser, this.originalImage, this.imagen, null, linkNuevoBuilder, linkViejoBuilder, this.root, this.conexion);
+        
+        //String linkViejo = chooser.showOpenDialog(root.getScene().getWindow()).toString();
+
+        this.imagenLink = linkNuevoBuilder.toString();
     }
     
 }

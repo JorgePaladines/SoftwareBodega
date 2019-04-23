@@ -8,6 +8,7 @@
             <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/CargarDatosVentana.fxml</file>
             <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/InicioController.java</file>
             <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/SoftwareBodega.java</file>
+            <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/model/ColocadorDeImagen.java</file>
             <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/Inicio.fxml</file>
             <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/LoginVentana.fxml</file>
             <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/CargarDatosVentanaController.java</file>
@@ -19,6 +20,7 @@
             <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/model/ListaCampos.java</file>
             <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/AdministrarCamposVentana.fxml</file>
             <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/model/Producto.java</file>
+            <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/InsertarProducto.fxml</file>
             <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/EditarProductoController.java</file>
             <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/InsertarProductoController.java</file>
             <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/EliminarProductoController.java</file>

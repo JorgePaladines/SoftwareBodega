@@ -5,6 +5,7 @@
  */
 package bodega;
 
+import bodega.model.ColocadorDeImagen;
 import java.io.IOException;
 import java.awt.Desktop;
 import java.net.URL;
@@ -26,6 +27,7 @@ import javafx.stage.Stage;
 import bodega.model.Conexion;
 import bodega.model.Producto;
 import bodega.model.Usuario;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -40,6 +42,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javax.imageio.ImageIO;
 
 /**
  * FXML Controller class
@@ -73,6 +76,9 @@ public class EditarProductoController implements Initializable {
     private AnchorPane root;
     
     private Usuario usuario;
+    
+    private String imagenLink;
+    private BufferedImage originalImage;
 
     /**
      * Initializes the controller class.
@@ -85,6 +91,7 @@ public class EditarProductoController implements Initializable {
     public void initData(Usuario usuario, Producto p){
         this.usuario = usuario;
         this.conexion = new Conexion(usuario);
+        this.imagenLink = null;
         
         this.producto = p;
         
@@ -108,6 +115,14 @@ public class EditarProductoController implements Initializable {
         //Esta línea hace que se centre todo
         paneHolder.minWidthProperty().bind(Bindings.createDoubleBinding(() -> 
         this.scrollPane.getViewportBounds().getWidth(), this.scrollPane.viewportBoundsProperty()));
+        
+        if(this.producto.getImagenLink() != null){
+            try {
+                this.imagen.setImage(new Image(new FileInputStream(this.producto.getImagenLink())));
+            } catch (FileNotFoundException ex) {
+                System.out.println("Habia una imagen en el producto pero fue borrada de la carpeta");
+            }
+        }
     }
 
     @FXML
@@ -117,11 +132,24 @@ public class EditarProductoController implements Initializable {
         
         try{
             if(camposBienColocados){
+                try {
+                    //Se trata de guardar la nueva imagen
+                    ImageIO.write(this.originalImage, "jpg", new File(this.imagenLink));
+                } catch (IOException ex) {
+                    Logger.getLogger(EditarProductoController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
                 //Hacer el UPDATE del producto
-                int filasActualizadas = this.conexion.actualizarProducto(producto.getIdProducto(), this.producto.getListaCampos().getListaCampos(), this.contenedor);
+                int filasActualizadas = this.conexion.actualizarProducto(producto.getIdProducto(),
+                                                                        this.producto.getListaCampos().getListaCampos(),
+                                                                        this.contenedor,
+                                                                        this.imagenLink);
                 
                 //Si el número de filas es mayor a 0, y en sí, si llega a esta línea, todo salió bien
                 if (filasActualizadas > 0){
+                    if(producto != null)
+                        producto.setImagenLink(this.imagenLink);
+                    
                     System.out.println("Actualización exitosa del producto");
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("");
@@ -150,6 +178,20 @@ public class EditarProductoController implements Initializable {
             alert.showAndWait();
         }
     }
+    
+    @FXML
+    private void cambiarImagen(ActionEvent event) {
+        FileChooser chooser = new FileChooser();
+        StringBuilder linkViejoBuilder = new StringBuilder();
+        StringBuilder linkNuevoBuilder = new StringBuilder();
+        
+        this.originalImage = ColocadorDeImagen.colocarImagen(chooser, this.originalImage, this.imagen, this.producto, linkNuevoBuilder, linkViejoBuilder, this.root, this.conexion);
+
+        //String linkViejo = chooser.showOpenDialog(root.getScene().getWindow()).toString();
+        
+        this.imagenLink = linkNuevoBuilder.toString();
+        
+    }
 
     @FXML
     private void back(ActionEvent event) throws IOException{
@@ -170,21 +212,4 @@ public class EditarProductoController implements Initializable {
         CargarDatosVentanaController controller = loader.<CargarDatosVentanaController>getController();
         controller.initData(usuario);
     }
-
-    @FXML
-    private void cambiarImagen(ActionEvent event) {
-        FileChooser chooser = new FileChooser();
-        Desktop desktop = Desktop.getDesktop();
-        chooser.setTitle("Open File");
-        File file = chooser.showOpenDialog(root.getScene().getWindow());
-        if(file != null){
-            try {
-                this.imagen.setImage(new Image(new FileInputStream(file)));
-                this.producto.setImagenLink(file.toString());
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(EditarProductoController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-    
 }

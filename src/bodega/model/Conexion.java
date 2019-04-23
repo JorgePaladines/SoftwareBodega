@@ -142,10 +142,9 @@ public class Conexion {
     
     //Inserta el producto en la base de datos.
     //Si algo sale mal, se lanza la excepción y se debe trapar dentro de la clase que llamó a este método
-    public int insertarProducto(VBox contenedor) throws SQLException{
-        
+    public int insertarProducto(VBox contenedor, String imagenLink) throws SQLException{
             //Primero crear un nuevo producto
-            String insertProducto = "INSERT INTO productos VALUES()";
+            String insertProducto = "INSERT INTO productos(imagenLink) VALUES('" + imagenLink + "')";
             PreparedStatement  stmt = this.conn.prepareStatement(insertProducto);
             int filasIngresadas = stmt.executeUpdate();
             
@@ -187,7 +186,7 @@ public class Conexion {
     
     //Actualiza el producto en la base de datos.
     //Si algo sale mal, se lanza la excepción y se debe trapar dentro de la clase que llamó a este método
-    public int actualizarProducto(int id, LinkedList<Campo> listaCampos, VBox box) throws SQLException{
+    public int actualizarProducto(int id, LinkedList<Campo> listaCampos, VBox box, String imagenLink) throws SQLException{
         int filasActualizadas = 0;
         int textoATomar = 1;
         
@@ -204,7 +203,7 @@ public class Conexion {
             textoATomar = textoATomar + 2;
         }
         
-        String sql = "UPDATE productos set date_updated =  current_timestamp where idProducto = " + id;
+        String sql = "UPDATE productos set imagenLink = '" + imagenLink + "' where idProducto = " + id;
         PreparedStatement stmt = this.conn.prepareStatement(sql);
         filasActualizadas = stmt.executeUpdate();
         

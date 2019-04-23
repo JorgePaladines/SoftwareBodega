@@ -37,7 +37,7 @@
                         <Image url="@../imagenes/placeholder-360x240.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="colocarImagenButton" layoutX="64.0" layoutY="232.0" mnemonicParsing="false" onAction="#colocarImagen" text="Colocar Imagen" />
+                  <Button fx:id="colocarImagenButton" layoutX="68.0" layoutY="232.0" mnemonicParsing="false" onAction="#colocarImagen" text="Incluir Imagen" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="188.0">

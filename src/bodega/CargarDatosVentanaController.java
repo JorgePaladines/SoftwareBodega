@@ -140,6 +140,7 @@ public class CargarDatosVentanaController implements Initializable {
             Eso lo hace la función cargarDatos()*/
             while(rs.next()){
                 Producto p = new Producto(rs,this.numColumnas);
+                p.setImagenLink(rs.getString("imagenLink"));
                 this.datos.add(p);
             };
         }
