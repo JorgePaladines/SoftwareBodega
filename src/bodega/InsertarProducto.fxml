@@ -21,23 +21,32 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" text="&lt;" />
-                  <Label fx:id="tituloNuevoProd" layoutX="241.0" layoutY="24.0" prefHeight="30.0" prefWidth="185.0" text="NUEVO PRODUCTO" AnchorPane.leftAnchor="241.0" AnchorPane.rightAnchor="240.0">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </Label>
-                  <ScrollPane fx:id="scrollPane" layoutX="230.0" layoutY="67.0" prefHeight="265.0" prefWidth="207.0" AnchorPane.bottomAnchor="66.0" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="229.0" AnchorPane.topAnchor="67.0">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="263.0" prefWidth="205.0" />
-                    </content>
-                  </ScrollPane>
-                  <Button fx:id="bInsertar" layoutX="299.0" layoutY="359.0" mnemonicParsing="false" onAction="#callInsertar" text="Insertar" />
-                  <ImageView fx:id="imagen" fitHeight="130.0" fitWidth="173.0" layoutX="27.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imagenes/placeholder-360x240.png" />
-                     </image>
-                  </ImageView>
-                  <Button fx:id="colocarImagenButton" layoutX="68.0" layoutY="232.0" mnemonicParsing="false" onAction="#colocarImagen" text="Incluir Imagen" />
+                  <VBox alignment="TOP_CENTER" layoutX="218.0" layoutY="19.0" spacing="20.0">
+                     <children>
+                        <Label fx:id="tituloNuevoProd" prefHeight="30.0" prefWidth="185.0" text="NUEVO PRODUCTO">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Label>
+                        <ScrollPane fx:id="scrollPane" prefHeight="265.0" prefWidth="230.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="263.0" prefWidth="228.0" />
+                          </content>
+                        </ScrollPane>
+                        <Button fx:id="bInsertar" mnemonicParsing="false" onAction="#callInsertar" text="Insertar" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" layoutX="27.0" layoutY="67.0" spacing="50.0">
+                     <children>
+                        <ImageView fx:id="imagen" fitHeight="130.0" fitWidth="173.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/placeholder-360x240.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="colocarImagenButton" mnemonicParsing="false" onAction="#colocarImagen" text="Incluir Imagen" />
+                        <Label fx:id="url" prefHeight="17.0" prefWidth="42.0" visible="false" />
+                     </children>
+                  </VBox>
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="188.0">

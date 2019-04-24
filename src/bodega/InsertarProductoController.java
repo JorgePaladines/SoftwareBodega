@@ -90,6 +90,8 @@ public class InsertarProductoController implements Initializable {
     
     private String imagenLink;
     private BufferedImage originalImage;
+    @FXML
+    private Label url;
     
     /**
      * Initializes the controller class.
@@ -110,6 +112,7 @@ public class InsertarProductoController implements Initializable {
     
     public void initData(Usuario usuario){
         this.usuario = usuario;
+        this.url.setText("");
         this.imagenLink = null;
         
         this.conexion = new Conexion(this.usuario);
@@ -165,11 +168,22 @@ public class InsertarProductoController implements Initializable {
         //para insertar el producto
         try{
             if(camposBienColocados){
-                try {
-                    //Se trata de guardar la nueva imagen
-                    ImageIO.write(this.originalImage, "jpg", new File(this.imagenLink));
-                } catch (IOException ex) {
-                    Logger.getLogger(EditarProductoController.class.getName()).log(Level.SEVERE, null, ex);
+                try{
+                    if(this.originalImage != null)
+                        //Se trata de guardar la nueva imagen
+                        ImageIO.write(this.originalImage, "jpg", new File(this.imagenLink));
+                    
+                    //Acá se guardará el url de la ubicacación de la imagen.
+                    //Este servirá como un url viejo para borrar la imagen después de cambiarse
+                    this.url.setText(this.imagenLink);
+                    
+                }catch (IOException ex){
+                    System.out.println("Imagen no incluída");
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("");
+                    alert.setHeaderText("NO SE INCLUYÓ IMAGEN");
+                    alert.setContentText("Hubo un problema con la imagen, y no se pudo incluír");
+                    alert.showAndWait();
                 }
                 //Hacer el INSERT del producto
                 int filasIngresadas = this.conexion.insertarProducto((VBox)this.scrollPane.getContent(), this.imagenLink);
@@ -234,13 +248,10 @@ public class InsertarProductoController implements Initializable {
     @FXML
     private void colocarImagen(ActionEvent event) {
         FileChooser chooser = new FileChooser();
-        StringBuilder linkViejoBuilder = new StringBuilder();
         StringBuilder linkNuevoBuilder = new StringBuilder();
         
-        this.originalImage = ColocadorDeImagen.colocarImagen(chooser, this.originalImage, this.imagen, null, linkNuevoBuilder, linkViejoBuilder, this.root, this.conexion);
+        this.originalImage = ColocadorDeImagen.colocarImagen(chooser, this.originalImage, this.imagen, null, linkNuevoBuilder, this.root, this.conexion);
         
-        //String linkViejo = chooser.showOpenDialog(root.getScene().getWindow()).toString();
-
         this.imagenLink = linkNuevoBuilder.toString();
     }
     

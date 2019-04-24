@@ -26,7 +26,7 @@ import javax.imageio.ImageIO;
  */
 public class ColocadorDeImagen {
     
-    public static BufferedImage colocarImagen(FileChooser chooser, BufferedImage originalImage, ImageView imagen, Producto producto, StringBuilder imagenLink, StringBuilder linkViejoBuilder, AnchorPane root, Conexion conn){
+    public static BufferedImage colocarImagen(FileChooser chooser, BufferedImage originalImage, ImageView imagen, Producto producto, StringBuilder imagenLink, AnchorPane root, Conexion conn){
         chooser.setTitle("Open File");
         File file = chooser.showOpenDialog(root.getScene().getWindow());
         if(file != null){
@@ -37,6 +37,7 @@ public class ColocadorDeImagen {
                 String[] direccionImagenLista = file.toString().split("\\\\");
                 String nombreImagen = direccionImagenLista[direccionImagenLista.length-1].split("\\.")[0];
                 
+                //Acá se encuentra el url nuevo
                 imagenLink.delete(0, imagenLink.length()).append(".\\\\src\\\\imagenes\\\\" + nombreImagen + ".jpg");
                 
                 

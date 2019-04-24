@@ -203,7 +203,11 @@ public class Conexion {
             textoATomar = textoATomar + 2;
         }
         
-        String sql = "UPDATE productos set imagenLink = '" + imagenLink + "' where idProducto = " + id;
+        String sql;
+        if(imagenLink != null)
+            sql = "UPDATE productos set imagenLink = '" + imagenLink + "' where idProducto = " + id;
+        else
+            sql = "UPDATE productos set date_updated =  current_timestamp where idProducto = " + id;
         PreparedStatement stmt = this.conn.prepareStatement(sql);
         filasActualizadas = stmt.executeUpdate();
         

@@ -8,6 +8,7 @@ package bodega;
 import bodega.model.Conexion;
 import bodega.model.Producto;
 import bodega.model.Usuario;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -146,12 +147,15 @@ public class EliminarProductoController implements Initializable {
             if(alert.getResult() == yesButton){
                 //System.out.println(this.listView.getItems().indexOf(seleccion));
                 Producto p = this.productos.get(this.listView.getItems().indexOf(seleccion));
+                File file = new File(p.getImagenLink());
                 int idProducto = p.getIdProducto();
                 //System.out.println(idProducto);
                 boolean exitoso = this.conn.eliminarProducto(idProducto);
                 
                 Alert al = new Alert(Alert.AlertType.INFORMATION);
                 if(exitoso){
+                    file.delete();
+                    
                     //Lanzar la alerta
                     System.out.println("Eliminación de producto exitosa");
                     al.setTitle("");
