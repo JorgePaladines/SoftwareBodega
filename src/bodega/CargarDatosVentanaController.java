@@ -74,21 +74,7 @@ public class CargarDatosVentanaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        /*
-        //Apenas se cargue la ventana, se muestran los datos
-        this.cargarDatosSinClic();
-        
-        //Función para que se pueda hacer doble clic sobre cada columna y editar el producto
-        this.dobleClicEditar(); 
-        
-        //Tratar de cerrar la conexión
-        try{
-         this.conexion.close();   
-        }
-        catch(SQLException e){
-            System.err.println(e);
-        }
-        */
+
     }
     
     public void initData(Usuario usuario){
@@ -149,50 +135,40 @@ public class CargarDatosVentanaController implements Initializable {
         }
     }
     
-    //Función para que se pueda hacer doble clic sobre cada columna y editar el producto
+    //Función para que se pueda hacer doble clic sobre cada columna y editar el producto o ver los clientes
     private void dobleClicEditar(){
-        //Sólo se puede hacer si el usuario tiene permiso de UPDATE
-        boolean update = false;
-        for(int i = 0; i < 6; i++){
-            if(this.usuario.getPrivilegios()[i].equalsIgnoreCase("UPDATE")){
-                update = true;
-            }
-        }
-        
-        if(update){
-            datosTabla.setRowFactory( tv -> {
-                TableRow<Producto> row = new TableRow<>();
-                row.setOnMouseClicked(event -> {
-                    if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
-                        //Se guarda el producto que se hizo doble clic
-                        Producto producto = row.getItem();
+        datosTabla.setRowFactory( tv -> {
+            TableRow<Producto> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    //Se guarda el producto que se hizo doble clic
+                    Producto producto = row.getItem();
 
-                        //System.out.println(producto.getIdProducto());
-                        try{
-                            //Pasar el producto por parámetro al controlador de EditarProducto
+                    //System.out.println(producto.getIdProducto());
+                    try{
+                        //Pasar el producto por parámetro al controlador de EditarProducto
 
-                            //Cargar el FXML Loader, como tipo de objecto FXMLLoader
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("EditarProducto.fxml"));
+                        //Cargar el FXML Loader, como tipo de objecto FXMLLoader
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("EditarOCliente.fxml"));
 
-                            //Colocar la escena como en los demás casos
-                            Stage stage = (Stage) backButton.getScene().getWindow();
-                            Scene scene = new Scene( (Parent) loader.load());
-                            stage.setScene(scene);
+                        //Colocar la escena como en los demás casos
+                        Stage stage = (Stage) backButton.getScene().getWindow();
+                        Scene scene = new Scene( (Parent) loader.load());
+                        stage.setScene(scene);
 
-                            //Pasar el parámetro de esta manera
-                            EditarProductoController controller = loader.<EditarProductoController>getController();
-                            controller.initData(this.usuario, producto);
+                        //Pasar el parámetro de esta manera
+                        EditarOClienteController controller = loader.<EditarOClienteController>getController();
+                        controller.initData(this.usuario, producto);
 
-                        }
-                        catch(IOException e){
-                            System.out.println("ERROR AL TRATAR DE EDITAR EL PRODUCTO");
-                            System.err.println(e);
-                        }
                     }
-                });
-                return row ;
+                    catch(IOException e){
+                        System.out.println("ERROR AL TRATAR DE EDITAR EL PRODUCTO");
+                        System.err.println(e);
+                    }
+                }
             });
-        }
+            return row ;
+        });
     }
     
     private void cargarDatosSinClic(){
@@ -220,8 +196,6 @@ public class CargarDatosVentanaController implements Initializable {
                     this.datosTabla.getColumns().add(tc);
                     contar++;
                 }
-                
-                //System.out.println("");
             }
         }
         datosTabla.setItems(datos);

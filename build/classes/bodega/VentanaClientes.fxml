@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="674.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bodega.VentanaClientesController">
+   <children>
+      <BorderPane layoutX="416.0" layoutY="100.0" prefHeight="400.0" prefWidth="674.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <AnchorPane prefHeight="39.0" prefWidth="674.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox />
+                  <Button fx:id="agregarCliente" disable="true" layoutX="288.0" layoutY="8.0" mnemonicParsing="false" onAction="#actionAgregarCliente" text="Agregar Cliente" />
+                  <Button fx:id="backButton" layoutX="40.0" layoutY="8.0" mnemonicParsing="false" onAction="#back" text="&lt;" />
+               </children>
+            </AnchorPane>
+         </top>
+         <bottom>
+            <TableView fx:id="datosTabla" prefHeight="360.0" prefWidth="674.0" BorderPane.alignment="CENTER">
+               <columns>
+                  <TableColumn fx:id="tcNombres" prefWidth="224.0" resizable="false" text="Nombres" />
+                  <TableColumn fx:id="tcApellidos" minWidth="8.0" prefWidth="180.0" text="Apellidos" />
+                  <TableColumn fx:id="tcTelefono" prefWidth="146.0" text="Teléfono" />
+                  <TableColumn fx:id="tcFecha" prefWidth="123.0" text="Fecha de Venta" />
+               </columns></TableView>
+         </bottom>
+      </BorderPane>
+   </children>
+</AnchorPane>

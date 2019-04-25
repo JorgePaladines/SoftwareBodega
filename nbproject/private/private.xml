@@ -8,23 +8,30 @@
             <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/CargarDatosVentana.fxml</file>
             <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/InicioController.java</file>
             <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/SoftwareBodega.java</file>
+            <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/AgregarClienteController.java</file>
             <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/model/ColocadorDeImagen.java</file>
             <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/Inicio.fxml</file>
+            <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/LoginVentanaController.java</file>
+            <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/Validacion.java</file>
+            <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/EditarOClienteController.java</file>
+            <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/InsertarProducto.fxml</file>
+            <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/AgregarCliente.fxml</file>
+            <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/EditarProductoController.java</file>
+            <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/model/Cliente.java</file>
+            <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/VentanaClientes.fxml</file>
+            <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/InsertarProductoController.java</file>
             <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/LoginVentana.fxml</file>
             <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/CargarDatosVentanaController.java</file>
-            <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/LoginVentanaController.java</file>
             <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/model/Campo.java</file>
-            <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/Validacion.java</file>
+            <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/EditarOCliente.fxml</file>
             <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/EditarProducto.fxml</file>
             <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/model/Conexion.java</file>
             <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/model/ListaCampos.java</file>
             <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/AdministrarCamposVentana.fxml</file>
             <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/model/Producto.java</file>
-            <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/InsertarProducto.fxml</file>
-            <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/EditarProductoController.java</file>
-            <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/InsertarProductoController.java</file>
             <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/EliminarProductoController.java</file>
             <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/model/Usuario.java</file>
+            <file>file:/C:/Users/SEGUIRESA-PC/Documents/NetBeansProjects/SoftwareBodega/src/bodega/VentanaClientesController.java</file>
         </group>
     </open-files>
 </project-private>

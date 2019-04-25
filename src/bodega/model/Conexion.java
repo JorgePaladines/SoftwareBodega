@@ -52,7 +52,9 @@ public class Conexion {
             //La variable campoDescripcion es usada para colocar la tabla de "descripcion" al inicio de la lista
             String campoDescripcion = "";
             while(rs.next()){
-                if(!rs.getString(1).equalsIgnoreCase("productos") && !rs.getString(1).equalsIgnoreCase("descripcion")){
+                if(!rs.getString(1).equalsIgnoreCase("productos") &&
+                        !rs.getString(1).equalsIgnoreCase("descripcion") &&
+                        !rs.getString(1).equalsIgnoreCase("cliente")){
                     this.listaNombresCampos.add(rs.getString(1));
                 }
                 else if(rs.getString(1).equalsIgnoreCase("productos")){
@@ -114,6 +116,20 @@ public class Conexion {
                 select += " LEFT JOIN "+this.listaNombresCampos.get(i)
                         + " on p.idProducto = "+this.listaNombresCampos.get(i)+".idProducto";
             }
+            rs = stmnt.executeQuery(select);
+        }
+        catch(SQLException e){
+            System.err.println(e);
+        }  
+        return rs;
+    }
+    
+    public ResultSet mostrarClientes(int idProducto){
+        ResultSet rs = null;
+        try{
+            Statement stmnt = (Statement) this.conn.createStatement();
+            //Primero se selecciona todos los productos
+            String select = "SELECT * FROM cliente where idProducto = " + idProducto;
             rs = stmnt.executeQuery(select);
         }
         catch(SQLException e){
@@ -296,6 +312,24 @@ public class Conexion {
                 String sql = "DELETE FROM " + tabla + " where idProducto = " + idProducto;
                 stmt.executeUpdate(sql);
             }
+            return true;
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean agregarCliente(int idProducto, String nombres, String apellidos, String telefono, String fecha_venta){
+        try{
+            String sql = "INSERT INTO cliente(idProducto,nombres,apellidos,telefono,fecha_venta) values(?,?,?,?,?)";
+            PreparedStatement stmt = this.conn.prepareStatement(sql);
+            stmt.setInt(1, idProducto);
+            stmt.setString(2, nombres);
+            stmt.setString(3, apellidos);
+            stmt.setString(4, telefono);
+            stmt.setString(5, fecha_venta);
+            stmt.executeUpdate();
             return true;
         }
         catch(SQLException e){

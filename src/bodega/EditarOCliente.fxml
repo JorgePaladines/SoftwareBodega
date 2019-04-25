@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="674.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="bodega.EditarOClienteController">
+   <children>
+      <Button fx:id="backButton" layoutX="39.0" layoutY="19.0" mnemonicParsing="false" onAction="#back" text="&lt;" />
+      <VBox alignment="TOP_CENTER" layoutX="186.0" layoutY="31.0" spacing="50.0" AnchorPane.leftAnchor="186.0" AnchorPane.rightAnchor="185.0">
+         <children>
+            <VBox alignment="TOP_CENTER" spacing="20.0">
+               <children>
+                  <Label fx:id="nombreProducto" alignment="CENTER" prefHeight="36.0" prefWidth="411.0" text="[NOMBRE DEL PRODUCTO]">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagenes/placeholder-360x240.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" spacing="20.0">
+               <children>
+                  <Button fx:id="bEditarProducto" disable="true" mnemonicParsing="false" onAction="#abrirEdicion" text="Editar Producto" />
+                  <Button fx:id="bAdministrarClientes" mnemonicParsing="false" onAction="#abrirClientes" text="Administrar Clientes" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
