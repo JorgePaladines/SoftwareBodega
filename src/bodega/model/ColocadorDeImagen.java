@@ -46,7 +46,7 @@ public class ColocadorDeImagen {
                 ex.printStackTrace();
                 
                 System.out.println("No se encontró la imagen");
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("");
                 alert.setHeaderText("ERROR EN LA LECTURA DE LA IMAGEN");
                 alert.setContentText("No se pudo detectar una imagen válida");
@@ -57,7 +57,7 @@ public class ColocadorDeImagen {
                 ex.printStackTrace();
                 
                 System.out.println("Error al procesar datos");
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("");
                 alert.setHeaderText("Error durante la escritura/lectura del archivo");
                 alert.setContentText("No se pudo colocar/leer la imagen seleccionada.");
@@ -69,7 +69,7 @@ public class ColocadorDeImagen {
                 ex.printStackTrace();
                 
                 System.out.println("La imagen no es válida");
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("");
                 alert.setHeaderText("ARCHIVO DE IMAGEN NO VÁLIDO");
                 alert.setContentText("Asegúrese de que está insertando un archivo de imagen correcto.");
@@ -82,7 +82,7 @@ public class ColocadorDeImagen {
                 e.printStackTrace();
                 
                 System.out.println("Error no conocido");
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("");
                 alert.setHeaderText("HUBO UN ERROR DESCONOCIDO");
                 alert.setContentText("Sucedió un error desconocido. Revise el estado de la base de datos o del programa.");

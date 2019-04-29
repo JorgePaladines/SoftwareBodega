@@ -179,7 +179,7 @@ public class InsertarProductoController implements Initializable {
                     
                 }catch (IOException ex){
                     System.out.println("Imagen no incluída");
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("");
                     alert.setHeaderText("NO SE INCLUYÓ IMAGEN");
                     alert.setContentText("Hubo un problema con la imagen, y no se pudo incluír");
@@ -200,7 +200,7 @@ public class InsertarProductoController implements Initializable {
             }
             else{
                 System.out.println("Campos mal colocados");
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("");
                 alert.setHeaderText("CAMPOS LLENADOS INCORRECTAMENTE");
                 alert.setContentText("Revise que todos los campos estén bien colocados");
@@ -211,7 +211,7 @@ public class InsertarProductoController implements Initializable {
         catch(SQLException e){
             System.out.println("El ingreso de datos no se pudo realizar");
             e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("");
             alert.setHeaderText("INGRESO DE PRODUCTO FALLIDO");
             alert.setContentText("No se ha podido insertar el nuevo producto en la base de datos");

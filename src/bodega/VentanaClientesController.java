@@ -25,6 +25,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -57,6 +58,8 @@ public class VentanaClientesController implements Initializable {
     private TableColumn<Cliente, String> tcTelefono;
     @FXML
     private TableColumn<Cliente, String> tcFecha;
+    
+    private boolean permisoUpdate;
 
     /**
      * Initializes the controller class.
@@ -69,14 +72,20 @@ public class VentanaClientesController implements Initializable {
     public void initData(Usuario usuario, Producto p){
         this.usuario = usuario;
         this.producto = p;
+        this.permisoUpdate = false;
         cargarClientes();
         
         for(int i = 0; i < 6; i++){
             if(this.usuario.getPrivilegios()[i].equalsIgnoreCase("CREATE")){
                 this.agregarCliente.setDisable(false);
-                break;
+            }
+            if(this.usuario.getPrivilegios()[i].equalsIgnoreCase("UPDATE")){
+                this.permisoUpdate = true;
             }
         }
+        
+        //Función para que se pueda hacer doble clic sobre cada columna y editar el cliente
+        this.dobleClicEditar(); 
     }
     
     private void cargarClientes(){
@@ -121,6 +130,44 @@ public class VentanaClientesController implements Initializable {
         }
         catch(SQLException e){
             System.err.println(e);
+        }
+    }
+    
+    //Función para que se pueda hacer doble clic sobre cada columna y editar el cliente
+    private void dobleClicEditar(){
+        if(this.permisoUpdate){
+            datosTabla.setRowFactory( tv -> {
+                TableRow<Cliente> row = new TableRow<>();
+                row.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                        //Se guarda el producto que se hizo doble clic
+                        Cliente cliente = row.getItem();
+
+                        //System.out.println(producto.getIdProducto());
+                        try{
+                            //Pasar el producto por parámetro al controlador de EditarProducto
+
+                            //Cargar el FXML Loader, como tipo de objecto FXMLLoader
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("ClienteEditar.fxml"));
+
+                            //Colocar la escena como en los demás casos
+                            Stage stage = (Stage) backButton.getScene().getWindow();
+                            Scene scene = new Scene( (Parent) loader.load());
+                            stage.setScene(scene);
+
+                            //Pasar el parámetro de esta manera
+                            ClienteEditarController controller = loader.<ClienteEditarController>getController();
+                            controller.initData(this.usuario, this.producto.getIdProducto(), this.producto, cliente);
+
+                        }
+                        catch(IOException e){
+                            System.out.println("ERROR AL TRATAR DE EDITAR EL CLIENTE");
+                            System.err.println(e);
+                        }
+                    }
+                });
+                return row ;
+            });
         }
     }
 

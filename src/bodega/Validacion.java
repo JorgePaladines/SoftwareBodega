@@ -35,7 +35,7 @@ public class Validacion {
             System.out.println("Hacen falta campos en el registro del producto");
             
             //Se arrojará una alerta en caso de que esto ocurra
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("");
             alert.setHeaderText("ALERTA");
             alert.setContentText("Hacen falta campos en el registro del producto");
@@ -56,7 +56,7 @@ public class Validacion {
             System.err.println(e);
             System.out.println("Los números no fueron bien ingresados");
             
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("");
             alert.setHeaderText("ALERTA");
             alert.setContentText("Los números no fueron bien ingresados");
@@ -151,7 +151,7 @@ public class Validacion {
             catch(NumberFormatException e){
                 System.out.println("Campo de número mal llenado");
                 e.printStackTrace();
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("");
                 alert.setHeaderText("CAMPO MAL LLENADO");
                 alert.setContentText("Uno de los campos no ha sido llenado con datos erróneos");
@@ -171,7 +171,7 @@ public class Validacion {
             catch(NumberFormatException e){
                 System.out.println("Campo de número mal llenado");
                 e.printStackTrace();
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("");
                 alert.setHeaderText("CAMPO MAL LLENADO");
                 alert.setContentText("Uno de los campos no ha sido llenado con datos erróneos");

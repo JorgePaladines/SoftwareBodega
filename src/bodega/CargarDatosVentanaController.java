@@ -210,13 +210,6 @@ public class CargarDatosVentanaController implements Initializable {
     //Botón para regresar
     @FXML
     private void back(ActionEvent event) throws IOException{
-        /*try{
-         this.conexion.close();   
-        }
-        catch(SQLException e){
-            System.err.println(e);
-        }*/
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Inicio.fxml"));
         Stage stage = (Stage) backButton.getScene().getWindow();
         Scene scene = new Scene( (Parent) loader.load());

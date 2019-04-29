@@ -97,7 +97,7 @@ public class LoginVentanaController implements Initializable {
         }
         catch(IOException e){
             System.out.println("Hubo un problema al cargar la ventana");
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("");
             alert.setHeaderText("PROBLEMAS EN LA CARGA DEL PROGRAMA");
             alert.setContentText("Ocurrió un error al momento de tratar de cargar la ventana. Intente de nuevo");
@@ -105,7 +105,7 @@ public class LoginVentanaController implements Initializable {
         }
         catch(SQLException e){
             System.out.println("El usuario o la contraseña es incorrecto");
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("");
             alert.setHeaderText("USUARIO O CONTRASEÑA INCORRECTOS");
             alert.setContentText("Revise que las credenciales estés bien colocadas");

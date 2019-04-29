@@ -135,7 +135,7 @@ public class EliminarProductoController implements Initializable {
     private void eliminar(ActionEvent event) {
         String seleccion = this.listView.getSelectionModel().getSelectedItem();
         if(seleccion != null){
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("");
             alert.setHeaderText("VA A ELIMINAR UN PRODUCTO DEL INVENTARIO");
             alert.setContentText("PRODUCTO: " + seleccion + "\n\n¿Está seguro de que desea eliminar este producto del inventario? "
@@ -168,6 +168,7 @@ public class EliminarProductoController implements Initializable {
                 }
                 else{
                     //Lanzar alerta
+                    al.setAlertType(Alert.AlertType.ERROR);
                     System.out.println("Eliminación de producto fallida");
                     al.setTitle("");
                     al.setHeaderText("NO SE HA PODIDO ELIMINAR EL PRODUCTO");

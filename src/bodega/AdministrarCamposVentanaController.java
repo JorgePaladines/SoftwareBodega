@@ -185,7 +185,7 @@ public class AdministrarCamposVentanaController implements Initializable {
             creacionExitosa = false;
             //Mandar alerta
             System.out.println("Datos mal colocados");
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("");
             alert.setHeaderText("LOS DATOS DEL CAMPO A CREAR NO ESTÁN BIEN COLOCADOS");
             alert.setContentText("Por favor asegurarse de que tenga un nombre y halla escogido un tipo");
@@ -204,7 +204,7 @@ public class AdministrarCamposVentanaController implements Initializable {
         else{
             //Si sale mal, mandar la alerta
             System.out.println("Creación de nuevo campo fallida");
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("");
             alert.setHeaderText("NO SE HA PODIDO CREAR EL NUEVO CAMPO");
             alert.setContentText("Hubo una falla en la creación del campo");
@@ -216,7 +216,7 @@ public class AdministrarCamposVentanaController implements Initializable {
     private void eliminarCampo(ActionEvent event) {
         String nombre = this.choiceCampo.getValue();
         if(nombre != null){
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("");
             alert.setHeaderText("VA A ELIMINAR UN CAMPO DE LOS PRODUCTOS DEL INVENTARIO");
             alert.setContentText("¿Está seguro de que desea eliminar este campo de los productos del inventario? "
@@ -245,6 +245,7 @@ public class AdministrarCamposVentanaController implements Initializable {
                         }
                         else{
                             //Lanzar alerta
+                            al.setAlertType(Alert.AlertType.ERROR);
                             System.out.println("Eliminación de campo fallida");
                             al.setTitle("");
                             al.setHeaderText("NO SE HA PODIDO ELIMINAR EL CAMPO");

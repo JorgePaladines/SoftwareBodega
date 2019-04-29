@@ -208,7 +208,7 @@ public class EditarProductoController implements Initializable {
                     catch(SQLException e){
                         System.out.println("La actualización de datos no se pudo realizar");
                         e.printStackTrace();
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("");
                         alert.setHeaderText("ACTUALIZACIÓN DE PRODUCTO FALLIDA");
                         alert.setContentText("No se ha podido actualizar el producto en la base de datos");

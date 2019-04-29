@@ -5,8 +5,10 @@
  */
 package bodega.model;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.LinkedList;
-import javafx.scene.control.Alert;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -336,6 +338,28 @@ public class Conexion {
             e.printStackTrace();
             return false;
         }
+    }
+    
+    public boolean actualizarCliente(int idCliente, String nombres, String apellidos, String telefono, LocalDate fecha_venta){
+        String sql = "UPDATE cliente SET nombres = '"
+                + nombres
+                + "', apellidos = '"
+                + apellidos
+                + "', telefono = '"
+                + telefono
+                + "', fecha_venta = '"
+                + fecha_venta
+                + "' where id = "
+                + idCliente;
+        PreparedStatement stmt;
+        try {
+            stmt = this.conn.prepareStatement(sql);
+            int filasActualizadas = stmt.executeUpdate();
+        } catch (SQLException ex) {
+            return false;
+        }
+            
+        return true;
     }
 
     public Connection getConn() {

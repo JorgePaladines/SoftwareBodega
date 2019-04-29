@@ -9,12 +9,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="674.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bodega.AgregarClienteController">
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="674.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="bodega.ClienteEditarController">
    <children>
-      <Button fx:id="backButton" layoutX="14.0" layoutY="13.0" mnemonicParsing="false" onAction="#back" text="&lt;" />
       <VBox alignment="TOP_CENTER" layoutX="189.0" layoutY="22.0" spacing="40.0">
          <children>
-            <Label fx:id="titulo" text="Agregar un nuevo cliente">
+            <Label fx:id="titulo" text="Editar Cliente">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -77,8 +77,9 @@
                   </HBox>
                </children>
             </VBox>
-            <Button fx:id="bAnadir" mnemonicParsing="false" onAction="#anadir" text="Añadir" />
+            <Button fx:id="bAnadir" mnemonicParsing="false" onAction="#actualizar" text="Actualizar" />
          </children>
       </VBox>
+      <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" text="&lt;" />
    </children>
 </AnchorPane>

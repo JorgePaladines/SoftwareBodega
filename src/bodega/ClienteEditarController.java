@@ -5,12 +5,14 @@
  */
 package bodega;
 
+import bodega.model.Cliente;
 import bodega.model.Conexion;
 import bodega.model.Producto;
 import bodega.model.Usuario;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,12 +32,14 @@ import javafx.stage.Stage;
  *
  * @author SEGUIRESA-PC
  */
-public class AgregarClienteController implements Initializable {
+public class ClienteEditarController implements Initializable {
 
     @FXML
-    private Button backButton;
-    @FXML
     private Label titulo;
+    @FXML
+    private Label labelProducto;
+    @FXML
+    private Label labelDescripcion;
     @FXML
     private Label lNombres;
     @FXML
@@ -54,6 +58,8 @@ public class AgregarClienteController implements Initializable {
     private DatePicker dFecha;
     @FXML
     private Button bAnadir;
+    @FXML
+    private Button backButton;
     
     private Usuario usuario;
     
@@ -61,11 +67,7 @@ public class AgregarClienteController implements Initializable {
     
     private Producto producto;
     
-    private Conexion conn;
-    @FXML
-    private Label labelProducto;
-    @FXML
-    private Label labelDescripcion;
+    private Cliente cliente;
 
     /**
      * Initializes the controller class.
@@ -75,12 +77,19 @@ public class AgregarClienteController implements Initializable {
         // TODO
     }
     
-    public void initData(Usuario usuario, int idProducto, Producto producto){
+    public void initData(Usuario usuario, int idProducto, Producto producto, Cliente cliente){
         this.usuario = usuario;
         this.idProducto = idProducto;
         this.producto = producto;
+        this.cliente = cliente;
         this.labelDescripcion.setText((String) this.producto.getListaCampos().getListaCampos().get(0).getCampo());
+        
+        this.tNombres.setText(cliente.getNombres());
+        this.tApellidos.setText(cliente.getApellidos());
+        this.tTelefono.setText(cliente.getTelefono());
+        this.dFecha.setValue(LocalDate.parse(cliente.getFecha_venta()));
     }
+
 
     @FXML
     private void back(ActionEvent event) throws IOException {
@@ -94,31 +103,36 @@ public class AgregarClienteController implements Initializable {
     }
 
     @FXML
-    private void anadir(ActionEvent event) {
-        this.conn = new Conexion(this.usuario);
+    private void actualizar(ActionEvent event) {
+        Conexion conn = new Conexion(this.usuario);
         
-        boolean exito = this.conn.agregarCliente(idProducto, this.tNombres.getText(), this.tApellidos.getText(), this.tTelefono.getText(), this.dFecha.getValue().toString());
+        boolean exito = conn.actualizarCliente(this.cliente.getId(),
+                                                tNombres.getText(),
+                                                tApellidos.getText(),
+                                                tTelefono.getText(),
+                                                dFecha.getValue());
         
         if(exito){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("");
-            alert.setHeaderText("AGREGADO DE CLIENTE EXITOSO");
-            alert.setContentText("Se ha añadido un nuevo cliente a la venta de este producto");
+            alert.setHeaderText("CLIENTE ACTUALIZADO CORRECTAMENTE");
+            alert.setContentText("El cliente ha sido actualizado en la base de datos.");
             alert.showAndWait();
         }
         else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("");
-            alert.setHeaderText("AGREGADO DE CLIENTE FALLIDO");
-            alert.setContentText("No se ha añadido un nuevo cliente a la venta de este producto");
+            alert.setHeaderText("NO SE PUDO ACTUALIZAR EL CLIENTE");
+            alert.setContentText("Hubo un problema en la actualización del cliente. Intente de nuevo");
             alert.showAndWait();
         }
         
         try{
-         this.conn.close();   
+            conn.close();
         }
         catch(SQLException e){
             System.err.println(e);
+            System.out.println("ERROR AL CERRAR LA CONEXIÓN");
         }
     }
     
