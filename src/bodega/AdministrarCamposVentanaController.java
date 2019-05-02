@@ -103,7 +103,7 @@ public class AdministrarCamposVentanaController implements Initializable {
         this.usuario = usuario;
         
         //Colocar permisos de CREATE y DROP
-        for(int i = 0; i < 6; i++){
+        for(int i = 0; i < this.usuario.getPrivilegios().length; i++){
             if(this.usuario.getPrivilegios()[i].equalsIgnoreCase("CREATE")){
                 this.CREATE = true;
             }

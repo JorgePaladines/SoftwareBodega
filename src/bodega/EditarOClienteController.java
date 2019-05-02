@@ -64,7 +64,7 @@ public class EditarOClienteController implements Initializable {
         this.producto = p;
         
         //Sólo se puede presionar el botón de editar si el usuario tiene permiso de UPDATE
-        for(int i = 0; i < 6; i++){
+        for(int i = 0; i < this.usuario.getPrivilegios().length; i++){
             if(this.usuario.getPrivilegios()[i].equalsIgnoreCase("UPDATE")){
                 this.bEditarProducto.setDisable(false);
                 this.update = true;

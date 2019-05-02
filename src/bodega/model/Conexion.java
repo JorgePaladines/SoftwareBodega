@@ -35,6 +35,9 @@ public class Conexion {
         this.USERNAME = usuario.getUsername();
         this.PASSWORD = usuario.getPassword();
         
+        System.out.println(this.USERNAME);
+        System.out.println(this.PASSWORD);
+        
         Connection conn = null;
         try{
             conn = DriverManager.getConnection(CONN_STRING,USERNAME,PASSWORD);

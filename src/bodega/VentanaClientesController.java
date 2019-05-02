@@ -75,8 +75,8 @@ public class VentanaClientesController implements Initializable {
         this.permisoUpdate = false;
         cargarClientes();
         
-        for(int i = 0; i < 6; i++){
-            if(this.usuario.getPrivilegios()[i].equalsIgnoreCase("CREATE")){
+        for(int i = 0; i < this.usuario.getPrivilegios().length; i++){
+            if(this.usuario.getPrivilegios()[i].equalsIgnoreCase("INSERT")){
                 this.agregarCliente.setDisable(false);
             }
             if(this.usuario.getPrivilegios()[i].equalsIgnoreCase("UPDATE")){

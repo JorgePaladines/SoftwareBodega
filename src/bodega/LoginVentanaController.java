@@ -28,6 +28,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 /**
@@ -60,9 +61,8 @@ public class LoginVentanaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
-
-    @FXML
-    private void login(ActionEvent event) {
+    
+    private void ingresar(){
         try{
             Connection conexion = DriverManager.getConnection("jdbc:mysql://10.0.10.50:3306/seguistore", tUser.getText(), tPass.getText());
             
@@ -72,7 +72,7 @@ public class LoginVentanaController implements Initializable {
             String sql = "SHOW GRANTS FOR CURRENT_USER";
             ResultSet rs = st.executeQuery(sql);
             rs.next();
-
+            
             String privilegios = rs.getString(1).substring(6, rs.getString(1).length());
             this.listaPrivilegios = privilegios.split(", ");
             
@@ -111,5 +111,15 @@ public class LoginVentanaController implements Initializable {
             alert.setContentText("Revise que las credenciales estés bien colocadas");
             alert.showAndWait();
         }
+    }
+
+    @FXML
+    private void login(ActionEvent event) {
+        this.ingresar();
+    }
+
+    @FXML
+    private void onEnter(ActionEvent event) {
+        this.ingresar();
     }
 }

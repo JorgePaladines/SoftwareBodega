@@ -24,7 +24,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="tUser">
+                  <TextField fx:id="tUser" onAction="#onEnter">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -38,7 +38,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <PasswordField fx:id="tPass" prefHeight="44.0" prefWidth="249.0" />
+                  <PasswordField fx:id="tPass" onAction="#onEnter" prefHeight="44.0" prefWidth="249.0" />
                </children>
             </VBox>
             <Button fx:id="bIngresar" mnemonicParsing="false" onAction="#login" prefHeight="39.0" prefWidth="122.0" text="INGRESAR">

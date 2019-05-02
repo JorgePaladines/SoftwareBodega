@@ -82,7 +82,7 @@ public class InicioController implements Initializable {
         boolean drop = false;
         
         //Se recorre la lista, sólo los 6 primeros elementos, y se habilitan aquellas opciones que sí pueden usarse
-        for(int i = 0; i < 6; i++){
+        for(int i = 0; i < this.usuario.getPrivilegios().length; i++){
             if(this.usuario.getPrivilegios()[i].equalsIgnoreCase("INSERT")){
                 this.insertarProducto.setDisable(false);
             }
